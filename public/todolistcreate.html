@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>Create Todo List</title>
+</head>
+<body>
+
+    <!----------- HTML-elements -------------->
+    <input id="inpHeading" type="text" /><br>
+    <textarea id="inpTodolistCreate" cols="80" rows="10"></textarea><br>
+    <button id="btnCreate">Create todo list</button>
+    <h3 id="txtResult">Result...</h3>
+        
+    <!------------- JavaScript --------------->
+    <script>
+
+        let inpHeading = document.getElementById('inpHeading');
+        let inpTodolistCreate = document.getElementById('inpTodolistCreate');
+        let btnCreate = document.getElementById('btnCreate');
+        let txtResult = document.getElementById('txtResult');
+
+        btnCreate.addEventListener('click', async function(evt) {
+
+            let url = "/blogposts";
+
+            let updata = {
+                heading: inpHeading.value,
+                blogtext: inpTodolistCreate.value
+            }
+
+            let cfg = {
+                method: "POST",
+                headers: {"content-type":"application/json"},
+                body: JSON.stringify(updata)
+            }
+
+            try {
+                let response = await fetch(url, cfg);
+                let data = await response.json();
+
+                if (response.status != 200) {
+                    throw data.error;
+                }
+
+                txtResult.innerHTML = data.msg;
+            }
+            catch(error) {
+                console.log(error);
+                txtResult.innerHTML = "Something went wrong - check the console window";
+            }
+        });
+
+    </script>
+
+    <!---------------- CSS ------------------->
+    <style>        
+
+    </style>
+
+</body>
+
+</html>
