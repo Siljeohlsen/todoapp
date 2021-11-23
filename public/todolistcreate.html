@@ -9,7 +9,7 @@
 
     <!----------- HTML-elements -------------->
     <input id="inpHeading" type="text" /><br>
-    <textarea id="inpTodolistCreate" cols="80" rows="10"></textarea><br>
+    <textarea id="inpTodoList" cols="80" rows="10"></textarea><br>
     <button id="btnCreate">Create todo list</button>
     <h3 id="txtResult">Result...</h3>
         
@@ -17,7 +17,7 @@
     <script>
 
         let inpHeading = document.getElementById('inpHeading');
-        let inpTodolistCreate = document.getElementById('inpTodolistCreate');
+        let inpTodoList = document.getElementById('inpTodoList');
         let btnCreate = document.getElementById('btnCreate');
         let txtResult = document.getElementById('txtResult');
 
@@ -27,7 +27,7 @@
 
             let updata = {
                 heading: inpHeading.value,
-                blogtext: inpTodolistCreate.value
+                blogtext: inpTodoList.value
             }
 
             let cfg = {
