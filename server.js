@@ -1,28 +1,37 @@
 const express = require("express");
+const { createToken } = require("./Modules/auth_utils.js");
 const server = express();
 const PORT = process.env.PORT || 8080;
 server.set("port", PORT);
+
+const blogposts = require("./modules/blogposts.js");
+const users = require("./Modules/users.js");
+
 
 // middleware ---------------------------
 server.use(express.static("public"));
 server.use(express.json());
 
-// endpoints ----------------------------
-server.get("/", function(req, res, next) {
-	res.status(200).send("Hello from GET").end();
-});
 
-server.post("/", function(req, res, next) {	
-	console.log(req.body.country);
-	res.status(200).send("Hello from POST").end();
-});
+server.use(blogposts);
+server.use(users);
 
-server.delete("/", function(req, res, next) {
-	res.status(200).send("Hello from DELETE").end();
-});
 
+// general error handling ------
+server.use(function (err,req, res, next){
+	
+	console.error(err);
+	
+	res.status(500).json({
+		error: 'Something went wrong on the server!',
+		descr: err
+	}).end();
+});
 
 // start server ------------------------
 server.listen(server.get("port"), function () {
-	console.log("server running", server.get("port"));
+	console.log("Server running");
 });
+
+
+
