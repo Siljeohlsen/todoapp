@@ -7,7 +7,43 @@ const router = express.Router();
 
 // user login ---------------------------
 router.post("/users/login", async function(req, res, next) {
-    res.status(200).send("Hello from POST - /users/login").end();
+    let credString = req.headers.authorization;
+    let cred = authUtils.decodeCred(credString);
+
+    if (cred.username == "" || cred.password == ""){
+        res.status(401).json({error: "no username og password"}).end();
+        return;
+    }
+
+    try {
+        let data = await db.getUser(cred.username);
+
+        if (data.rows.length > 0) {
+            let userid = data.rows[0].id;
+            let username = data.rows[0].username;
+            let userhashpassword = data.rows[0].password;
+            let usersalt = data.rows[0].salt;
+
+            if (authUtils.verifyPassword(cred.password, userhashpassword, usersalt)){
+
+                let tok = authUtils.createToken(username, userid);
+                res.status(200).json({
+                    msg: "The login was succesful.",
+                    token: tok
+                }).end();
+
+            }else{
+                res.status(401).json({msg: "Invalid password"}).end();
+                return;
+             }
+        }else {
+            res.status(403).end();
+            return;
+        }
+    }
+    catch (err) {
+        next(err);
+    }
 });
 
 // list all users -----------------------
