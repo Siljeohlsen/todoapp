@@ -24,10 +24,10 @@ router.post("/blogposts", async function(req, res, next) {
 		let data = await db.createBlogPost(updata.heading, updata.blogtext, userid);
 
 		if ( data.rows.length > 0){
-			res.status(200).json({msg: "The blogposts was created succefully"}).end();
+			res.status(200).json({msg: "The todolist was created succefully"}).end();
 		} 
 		else{
-			throw "The blogposts couldn't be created";
+			throw "The todolist couldn't be created";
 		}
 	}
 	catch(err){
