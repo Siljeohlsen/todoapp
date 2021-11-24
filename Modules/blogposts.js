@@ -1,24 +1,28 @@
 const express = require('express');
+const protect = require('./auth.js');
 const db = require ('./db.js');
 const router = express.Router();
 
 // endpoints ----------------------------
-router.get("/blogposts", async function(req, res, next) {
+router.get("/blogposts", protect, async function(req, res, next) {
 	
+	console.log(res.locals.username);
+	console.log(res.locals.userid);
+
 	try{
 		let data = await db.getAllBlogPosts();
 		res.status(200).json(data.rows).end();
 	}
 	catch(err) {
-		console.error(err);
+
 		next(err);
 	}
 });
 
-router.post("/blogposts", async function(req, res, next) {	
+router.post("/blogposts", protect, async function(req, res, next) {	
 	
 	let updata = req.body;
-	let userid = 1; // must be changed when implementing users
+	let userid = res.locals.userid; 
 
 	try {
 		let data = await db.createBlogPost(updata.heading, updata.blogtext, userid);
@@ -35,12 +39,13 @@ router.post("/blogposts", async function(req, res, next) {
 	}
 });
 
-router.delete("/blogposts", async function(req, res, next) {
+router.delete("/blogposts", protect, async function(req, res, next) {
 	
 	let updata = req.body;
+	let userid = res.locals.userid;
 
 	try {
-		let  data = await db.deleteBlogPost(updata.id);
+		let  data = await db.deleteBlogPost(updata.id, userid);
 
 		if (data.rows.length > 0) {
 			res.status(200).json({msg : "The blogpost was deleted succesfully"}).end();

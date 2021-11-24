@@ -24,9 +24,9 @@ dbMethods.createBlogPost = function(heading, blogtext, userid){
 }
 
 //-----
-dbMethods.deleteBlogPost = function(id) {
-    let sql = "DELETE FROM blogposts WHERE id = $1 RETURNING *";
-    let values = [id];
+dbMethods.deleteBlogPost = function(id, userid) {
+    let sql = "DELETE FROM blogposts WHERE id = $1 AND userid = $2 RETURNING *";
+    let values = [id, userid];
     return pool.query(sql, values); //return the promise
 }
 
