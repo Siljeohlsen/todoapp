@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+
+    <input type="checkbox" id="list">
+    <div id="container"></div>
+
+    <script>
+
+    let checkbox = document.getElementById('checkbox');
+    let container = document.getElementById('container');
+
+    async function listBlogPosts() {
+        let url = "/blogposts";
+
+        try {
+            let response = await fetch(url);
+            let data = await response.json();
+
+            if (response.status != 200){
+                throw data.error;
+            }
+
+            container.innerHTML = ""; // delete previous content
+
+            for (let value of data) {
+                let date = new Date(value.date);
+
+                let html = "<h2>" + value.heading + "</h2>";
+                html += "<p>" + date.toLocaleDateString() + "</p>";
+                html += "<p>" + value.blogtext + "</p><hr>";
+
+                let div = document.createElement("div");
+                div.innerHTML = html;
+                container.appendChild(div);
+
+                let delbtn = document.createElement("button");
+                delbtn.innerHTML = "Delete";
+
+                delbtn.addEventListener('click', function(evt){
+                    deleteBlogPost(value.id);
+                });
+
+                div.insertBefore(delbtn, div.lastElementChild);
+            }
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
+    async function deleteBlogPost(blogpostId){
+
+        let url = "/blogposts";
+
+        let updata = {
+            id: blogpostId
+        }
+
+        let cfg = {
+            method: "DELETE",
+            headers: {"content-type": "application/json"},
+            body: JSON.stringify(updata)
+        }
+
+        try {
+            let response = await fetch(url, cfg);
+            let data = await response.json();
+
+            if (response.status != 200){
+                throw data.error;
+            }
+
+            listBlogPosts(); // refresh the list
+        }
+        catch(error) {
+            console.log(error);
+        }
+    }
+
+    listBlogPosts();
+
+    </script>
+    
+</body>
+</html>
