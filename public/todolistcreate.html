@@ -10,7 +10,7 @@
     <!----------- HTML-elements -------------->
     <input id="inpHeading" type="text" /><br>
     <textarea id="inpTodoList" cols="80" rows="10"></textarea><br>
-    <button id="btnCreate">Create todo list</button>
+    <button id="buttonCreate">Create todo list</button>
     <h3 id="txtResult">Result...</h3>
         
     <!------------- JavaScript --------------->
@@ -18,10 +18,10 @@
 
         let inpHeading = document.getElementById('inpHeading');
         let inpTodoList = document.getElementById('inpTodoList');
-        let btnCreate = document.getElementById('btnCreate');
+        let buttonCreate = document.getElementById('buttonCreate');
         let txtResult = document.getElementById('txtResult');
 
-        btnCreate.addEventListener('click', async function(evt) {
+        buttonCreate.addEventListener('click', async function(evt) {
 
             let url = "/blogposts";
 
