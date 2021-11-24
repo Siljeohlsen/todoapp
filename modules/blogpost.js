@@ -43,10 +43,10 @@ router.delete("/blogposts", async function(req, res, next) {
 		let  data = await db.deleteBlogPost(updata.id);
 
 		if (data.rows.length > 0) {
-			res.status(200).json({msg : "The blogpost was deleted succesfully"}).end();
+			res.status(200).json({msg : "The todolist was deleted succesfully"}).end();
 		}
 		else {
-			throw "The blogpost couldn't be deleted";
+			throw "The todolist couldn't be deleted";
 		}
 	}
 	catch(err) {
