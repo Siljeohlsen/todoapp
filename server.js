@@ -28,9 +28,27 @@ server.get("/todoapp", async function(req, res, next) {
 	}
 });
 
-server.post("/", function(req, res, next) {	
-	console.log(req.body.country);
-	res.status(200).send("Hello from POST").end();
+server.post("/todoapp", async function(req, res, next) {
+
+	let updata = req.body;
+	let userid = 1;
+
+	let sql = 'INSERT INTO todoapp (id, date, heading, listtext, userid) VALUES(DEFAULT, DEFAULT, $1, $2, $3) returning *';
+	let values = [updata.heading, updata.listtext, userid];
+
+	try{
+		let result = await pool.query(sql, values);
+
+		if (result.rows.length > 0) {
+			res.status(200).json({msg: "The lists were created succesfully"}).end();
+		}
+		else{
+			throw "The lists couldn't be created";
+		}
+	}
+	catch(err) {
+		res.status(500).json({error: err}).end();
+	}
 });
 
 server.delete("/", function(req, res, next) {
