@@ -30,9 +30,12 @@
                 blogtext: inpTodoList.value
             }
 
+            let token = localStorage.getItem("token");
+
             let cfg = {
                 method: "POST",
-                headers: {"content-type":"application/json"},
+                headers: {"content-type":"application/json", 
+                            "authorization" : token},
                 body: JSON.stringify(updata)
             }
 
