@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>TestClient</title>
+</head>
+<body>
+
+    <!----------- HTML-elements -------------->
+    <div id="container"></div>
+        
+    <!------------- JavaScript --------------->
+    <script>
+
+        let container = document.getElementById('container');
+
+        async function listTodoLists() {
+
+            let url = "/todoapp";
+
+            try {
+                let response = await fetch(url);
+                let data = await response.json();
+
+                if (response.status != 200) {
+                    throw data.error;
+                }
+
+                for (let value of data) {
+                    
+                    let date = new Date(value.date);
+
+                    
+                    let html = "<h2>" + value.heading + "</h2>";
+                    html += "<p>" + date.toLocaleDateString() + "</p>";
+                    html += "<p>" + value.listtext + "</p><hr>";
+
+                    let div = document.createElement("div");
+                    div.innerHTML = html;
+                    container.appendChild(div);
+                    
+                }
+            }
+            catch(error) {
+                console.log(error);
+            }
+        }
+        
+        listTodoLists();
+
+    </script>
+
+    <!---------------- CSS ------------------->
+    <style>        
+
+    </style>
+
+</body>
+
+</html>

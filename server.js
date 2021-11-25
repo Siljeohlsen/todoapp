@@ -17,8 +17,15 @@ server.use(express.static("public"));
 server.use(express.json());
 
 // endpoints ----------------------------
-server.get("/", function(req, res, next) {
-	res.status(200).send("Hello from GET").end();
+server.get("/todoapp", async function(req, res, next) {
+	let sql = "SELECT * FROM todoapp";
+	try{
+		let result = await pool.query(sql);
+		res.status(200).json(result.rows).end();
+	}
+	catch(err) {
+		res.status(500).json({error: err}).end();
+	}
 });
 
 server.post("/", function(req, res, next) {	
