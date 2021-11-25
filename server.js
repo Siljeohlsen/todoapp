@@ -51,10 +51,26 @@ server.post("/todoapp", async function(req, res, next) {
 	}
 });
 
-server.delete("/", function(req, res, next) {
-	res.status(200).send("Hello from DELETE").end();
-});
+server.delete("/todoapp", async function(req, res, next) {
 
+	let updata = req.body;
+
+	let sql = "DELETE FROM todoapp WHERE id = $1 RETURNING *";
+	let values = [updata.id];
+
+	try{
+		let result = await pool.query(sql, values);
+		if (result.rows.length > 0) {
+			res.status(200).json({msg: "The list was deleted succesfully"}).end();
+		}
+		else{
+			throw "The list couldn't be deleted";
+		}
+	}
+	catch(err) {
+		res.status(500).json({error: err}).end();
+	}
+});
 
 // start server ------------------------
 server.listen(server.get("port"), function () {

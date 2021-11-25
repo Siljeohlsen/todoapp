@@ -27,6 +27,8 @@
                     throw data.error;
                 }
 
+                container.innerHTML = "";
+
                 for (let value of data) {
                     
                     let date = new Date(value.date);
@@ -39,16 +41,54 @@
                     let div = document.createElement("div");
                     div.innerHTML = html;
                     container.appendChild(div);
-                    
+
+                    let delbtn = document.createElement("button");
+                    delbtn.innerHTML = "Delete";
+
+                    delbtn.addEventListener('click', function(evt) {
+                        deleteTodoLists(value.id);
+                    });
+
+                    div.insertBefore(delbtn, div.lastElementChild);
+     
                 }
             }
             catch(error) {
                 console.log(error);
             }
         }
-        
-        listTodoLists();
 
+        async function deleteTodoLists(todoappId) {
+
+            let url = "/todoapp";
+
+            let updata = {
+                id: todoappId
+            }
+
+            let cfg = {
+                method: "DELETE",
+                headers: {"content-type":"application/json"},
+                body: JSON.stringify(updata)
+            }
+
+            try {
+                let response = await fetch(url, cfg);
+                let data = await response.json();
+
+                if (response.status != 200) {
+                    throw data.error;
+                }
+
+                listTodoLists();
+            }
+            catch(error) {
+                console.log(error);
+            }
+        }
+
+        listTodoLists();
+   
     </script>
 
     <!---------------- CSS ------------------->
