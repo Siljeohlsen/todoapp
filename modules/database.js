@@ -7,29 +7,29 @@ const pool = new pg.Pool({
 });
 
 // database methods ---------------------------
-let dbMethods = {}; //create empty object
+let databaseMethods = {}; //create empty object
 
 // ----------------------------
-dbMethods.getAllLists = function() {
+databaseMethods.getAllLists = function() {
     let sql = "SELECT * FROM todoapp";
     return pool.query(sql); //return the promise
 }
 
 // ----------------------------
-dbMethods.createLists = function(heading, blogtext, userid) {
+databaseMethods.createLists = function(heading, listtext, userid) {
     let sql = "INSERT INTO todoapp (id, date, heading, listtext, userid) VALUES(DEFAULT, DEFAULT, $1, $2, $3) returning*";
     let values = [heading, listtext, userid];
     return pool.query(sql, values); //return the promise
 }
 
 // ----------------------------
-dbMethods.deleteLists = function(id) {
+databaseMethods.deleteLists = function(id) {
     let sql = "DELETE FROM todoapp WHERE id = $1 RETURNING*";
     let values = [id];
     return pool.query(sql, values); //return the promise
 }
 
 // export dbMethods ----------------------------
-module.exports = dbMethods;
+module.exports = databaseMethods;
 
 
