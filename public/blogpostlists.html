@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>Blogpost list</title>
+</head>
+<body>
+
+    <!----------- HTML-elements -------------->
+    
+        <div id="container"></div>
+
+    <!------------- JavaScript --------------->
+    <script>
+
+
+let container = document.getElementById('container');
+
+async function listBlogPosts() {
+    let url = "/list";
+
+    let token = localStorage.getItem("token");
+
+    let cfg = {
+        method : "GET",
+        headers: {"authorization": token}    
+    };
+
+    try {
+        let response = await fetch(url, cfg);
+        let data = await response.json();
+
+        if (response.status != 200){
+            throw data.error;
+        }
+
+        container.innerHTML = ""; // delete previous content
+
+        for (let value of data) {
+            let date = new Date(value.date);
+
+            let html = "<h2>" + value.heading + "</h2>";
+            html += "<p>" + date.toLocaleDateString() + "</p>";
+            html += "<p>" + value.blogtext + "</p><hr>";
+
+            let div = document.createElement("div");
+            div.innerHTML = html;
+            container.appendChild(div);
+
+            let delbtn = document.createElement("button");
+            delbtn.innerHTML = "Delete";
+
+            delbtn.addEventListener('click', function(evt){
+                deleteBlogPost(value.id);
+            });
+
+
+            div.insertBefore(delbtn, div.lastElementChild);
+        }
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+async function deleteBlogPost(blogpostId){
+
+    let url = "/list";
+    let token = localStorage.getItem("token");
+    
+
+    let updata = {
+        id: blogpostId
+    }
+
+    let cfg = {
+        method: "DELETE",
+        headers: {"content-type": "application/json", 
+        "authorization": token
+     },
+        body: JSON.stringify(updata)
+    }
+
+    try {
+        let response = await fetch(url, cfg);
+        let data = await response.json();
+
+        if (response.status != 200){
+            throw data.error;
+        }
+
+        listBlogPosts(); // refresh the list
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
+listBlogPosts();
+
+
+
+
+    </script>
+    
+    <style>        
+
+        * {
+            margin: 0;
+            font-family: sans-serif;
+            font-family: larger;
+            color: rgb(85, 57, 45);
+            background-color: rgb(252, 212, 210);
+        }
+
+        input[type=text] {
+            border: 3px solid #555;
+            border-radius: 7px;
+        }
+
+        textarea {
+            border: 3px solid #555;
+            border-radius: 7px;
+        }
+
+        button {
+            border-radius: 7px;
+        }
+
+        button:hover {
+            background-color: rgb(189, 127, 106);
+        }
+
+
+    </style>
+
+</body>
+</html>
