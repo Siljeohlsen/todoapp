@@ -16,6 +16,7 @@
     let container = document.getElementById('container');
 
     async function listBlogPosts() {
+        
         let url = "/blogposts";
 
         try {
@@ -29,6 +30,7 @@
             container.innerHTML = ""; // delete previous content
 
             for (let value of data) {
+                
                 let date = new Date(value.date);
 
                 let html = "<h2>" + value.heading + "</h2>";
@@ -84,6 +86,8 @@
     }
 
     listBlogPosts();
+
+        
 
     </script>
     
