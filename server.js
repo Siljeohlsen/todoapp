@@ -1,3 +1,4 @@
+const database = require('./modules/database.js');
 const express = require("express");
 const server = express();
 const PORT = process.env.PORT || 8080;
@@ -18,13 +19,13 @@ server.use(express.json());
 
 // endpoints ----------------------------
 server.get("/todoapp", async function(req, res, next) {
-	let sql = "SELECT * FROM todoapp";
+	
 	try{
-		let result = await pool.query(sql);
-		res.status(200).json(result.rows).end();
+		let data = await database.getAllLists();
+		res.status(200).json(data.rows).end();
 	}
 	catch(err) {
-		res.status(500).json({error: err}).end();
+		next(err);
 	}
 });
 
@@ -33,13 +34,10 @@ server.post("/todoapp", async function(req, res, next) {
 	let updata = req.body;
 	let userid = 1;
 
-	let sql = 'INSERT INTO todoapp (id, date, heading, listtext, userid) VALUES(DEFAULT, DEFAULT, $1, $2, $3) returning *';
-	let values = [updata.heading, updata.listtext, userid];
-
 	try{
-		let result = await pool.query(sql, values);
+		let data = await database.createLists(updata.heading, updata.listtext, userid);
 
-		if (result.rows.length > 0) {
+		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The lists were created succesfully"}).end();
 		}
 		else{
@@ -47,7 +45,7 @@ server.post("/todoapp", async function(req, res, next) {
 		}
 	}
 	catch(err) {
-		res.status(500).json({error: err}).end();
+		next(err);
 	}
 });
 
@@ -55,12 +53,9 @@ server.delete("/todoapp", async function(req, res, next) {
 
 	let updata = req.body;
 
-	let sql = "DELETE FROM todoapp WHERE id = $1 RETURNING *";
-	let values = [updata.id];
-
 	try{
-		let result = await pool.query(sql, values);
-		if (result.rows.length > 0) {
+		let data = await database.deleteLists(updata.id);
+		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The list was deleted succesfully"}).end();
 		}
 		else{
@@ -68,8 +63,17 @@ server.delete("/todoapp", async function(req, res, next) {
 		}
 	}
 	catch(err) {
-		res.status(500).json({error: err}).end();
+		next(err);
 	}
+});
+
+//error handling
+server.use(function (err, req, res, next) {
+	res.status(500).json({
+		error: 'Something went wrong on the server!',
+		descr: err
+	}).end();
+
 });
 
 // start server ------------------------
