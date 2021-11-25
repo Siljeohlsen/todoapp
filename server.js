@@ -4,7 +4,7 @@ const server = express();
 const PORT = process.env.PORT || 8080;
 server.set("port", PORT);
 
-const blogposts = require("./modules/blogposts.js");
+const list = require("./Modules/list.js");
 const users = require("./Modules/users.js");
 
 
@@ -13,7 +13,7 @@ server.use(express.static("public"));
 server.use(express.json());
 
 
-server.use(blogposts);
+server.use(list);
 server.use(users);
 
 

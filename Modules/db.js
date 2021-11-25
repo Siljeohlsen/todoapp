@@ -12,20 +12,25 @@ let dbMethods = {}; // create empty object
 
 // -----
 dbMethods.getAllBlogPosts = function(){
-    let sql = "SELECT * FROM blogposts";
+    let sql = "SELECT * FROM list";
     return pool.query(sql); // return the promise
 }
 
 //-----
 dbMethods.createBlogPost = function(heading, blogtext, userid){
-    let sql = "INSERT INTO blogposts (id, date, heading, blogtext, userid) VALUES( DEFAULT, DEFAULT, $1, $2, $3) returning *";
+    let sql = "INSERT INTO list (id, date, heading, blogtext, userid) VALUES( DEFAULT, DEFAULT, $1, $2, $3) returning *";
     let values = [heading, blogtext, userid];
     return pool.query(sql, values); //returns the promise 
 }
 
+dbMethods.createBlogPostEntry = function(heading, blogtext, userid){
+    let sql = "INSERT INTO blogpostentry (id, date, heading, blogtext, userid) VALUES( DEFAULT, DEFAULT, $1, $2, $3) returning *";
+    let values = [heading, blogtext, userid];
+    return pool.query(sql, values); //returns the promise 
+}
 //-----
 dbMethods.deleteBlogPost = function(id, userid) {
-    let sql = "DELETE FROM blogposts WHERE id = $1 AND userid = $2 RETURNING *";
+    let sql = "DELETE FROM list WHERE id = $1 AND userid = $2 RETURNING *";
     let values = [id, userid];
     return pool.query(sql, values); //return the promise
 }

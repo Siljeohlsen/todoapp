@@ -4,7 +4,7 @@ const db = require ('./db.js');
 const router = express.Router();
 
 // endpoints ----------------------------
-router.get("/blogposts", protect, async function(req, res, next) {
+router.get("/list", protect, async function(req, res, next) {
 	
 	console.log(res.locals.username);
 	console.log(res.locals.userid);
@@ -19,7 +19,7 @@ router.get("/blogposts", protect, async function(req, res, next) {
 	}
 });
 
-router.post("/blogposts", protect, async function(req, res, next) {	
+router.post("/list", protect, async function(req, res, next) {	
 	
 	let updata = req.body;
 	let userid = res.locals.userid; 
@@ -28,10 +28,10 @@ router.post("/blogposts", protect, async function(req, res, next) {
 		let data = await db.createBlogPost(updata.heading, updata.blogtext, userid);
 
 		if ( data.rows.length > 0){
-			res.status(200).json({msg: "The blogposts was created succefully"}).end();
+			res.status(200).json({msg: "The list was created succefully"}).end();
 		} 
 		else{
-			throw "The blogposts couldn't be created";
+			throw "The list couldn't be created";
 		}
 	}
 	catch(err){
@@ -39,7 +39,7 @@ router.post("/blogposts", protect, async function(req, res, next) {
 	}
 });
 
-router.delete("/blogposts", protect, async function(req, res, next) {
+router.delete("/list", protect, async function(req, res, next) {
 	
 	let updata = req.body;
 	let userid = res.locals.userid;
