@@ -3,47 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <title>Create Todo List</title>
+    <title>Create list</title>
 </head>
 <body>
 
     <!----------- HTML-elements -------------->
-    <input id="inpHeading" type="text" /><br>
-    <textarea id="inpTodoList" cols="80" rows="10"></textarea><br>
-    <button id="buttonCreate">Create todo list</button>
+    <h1> Create and view entries </h1>
+
+    <input id="inpHeading" type="text"/>  <br>
+    <textarea id="inpBlogtext" cols="20" rows="10"></textarea><br>
+    <button id="btnCreate"> Create post </button><br>
     <h3 id="txtResult">Result...</h3>
+
+    
+    <!------- List -------->
+    <span id="container"></span>
         
     <!------------- JavaScript --------------->
     <script>
 
         let inpHeading = document.getElementById('inpHeading');
-        let inpTodoList = document.getElementById('inpTodoList');
-        let buttonCreate = document.getElementById('buttonCreate');
+        let inpBlogtext = document.getElementById('inpBlogtext');
+        let btnCreate = document.getElementById('btnCreate');
         let txtResult = document.getElementById('txtResult');
 
-        buttonCreate.addEventListener('click', async function(evt) {
 
-            let url = "/blogposts";
 
+        btnCreate.addEventListener('click', async function(evt) {
+            
+            let url = "/list";
+            
             let updata = {
-                heading: inpHeading.value,
-                blogtext: inpTodoList.value
+                heading : inpHeading.value,
+                blogtext : inpBlogtext.value
             }
 
             let token = localStorage.getItem("token");
 
             let cfg = {
-                method: "POST",
-                headers: {"content-type":"application/json", 
+                method : "POST",
+                headers : {"content-type" : "application/json",
                             "authorization" : token},
-                body: JSON.stringify(updata)
+                body : JSON.stringify(updata)
             }
 
             try {
-                let response = await fetch(url, cfg);
+                let response = await fetch(url,cfg);
                 let data = await response.json();
-
-                if (response.status != 200) {
+            
+                if (response.status != 200){
                     throw data.error;
                 }
 
@@ -53,7 +61,98 @@
                 console.log(error);
                 txtResult.innerHTML = "Something went wrong - check the console window";
             }
+            listBlogPosts();
         });
+
+        // ------- List --------
+       
+     let container = document.getElementById('container');
+
+async function listBlogPosts() {
+    let url = "/list";
+
+    let token = localStorage.getItem("token");
+
+    let cfg = {
+        method : "GET",
+        headers: {"authorization": token}    
+    };
+
+    try {
+        let response = await fetch(url, cfg);
+        let data = await response.json();
+
+        if (response.status != 200){
+            throw data.error;
+        }
+
+        container.innerHTML = ""; // delete previous content
+
+        for (let value of data) {
+            let date = new Date(value.date);
+
+            let html = "<h2>" + value.heading + "</h2>";
+            // forløkke 2, hent ut listitems
+            html += "<p>" + value.blogtext + "</p>";
+            html += "<p>" + date.toLocaleDateString() + "</p><hr>";
+            
+            
+
+            let div = document.createElement("div");
+            div.innerHTML = html;
+            container.appendChild(div);
+
+            let delbtn = document.createElement("button");
+            delbtn.innerHTML = "Delete";
+
+            delbtn.addEventListener('click', function(evt){
+                deleteBlogPost(value.id);
+            });
+
+
+            div.insertBefore(delbtn, div.lastElementChild);
+        }
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+async function deleteBlogPost(blogpostId){
+
+    let url = "/list";
+    let token = localStorage.getItem("token");
+    
+
+    let updata = {
+        id: blogpostId
+    }
+
+    let cfg = {
+        method: "DELETE",
+        headers: {"content-type": "application/json", 
+        "authorization": token
+     },
+        body: JSON.stringify(updata)
+    }
+
+    try {
+        let response = await fetch(url, cfg);
+        let data = await response.json();
+
+        if (response.status != 200){
+            throw data.error;
+        }
+
+        listBlogPosts(); // refresh the list
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
+listBlogPosts();
+
 
     </script>
 
