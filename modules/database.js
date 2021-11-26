@@ -29,6 +29,36 @@ databaseMethods.deleteLists = function(id) {
     return pool.query(sql, values); //return the promise
 }
 
+// Users -----------------------
+
+dbMethods.getAllUsers = function(){
+    let sql = "SELECT id, username FROM users";
+    return pool.query(sql); //return the promise
+}
+
+//-------------------------------
+dbMethods.getUser = function(username) {
+    let sql = "SELECT * FROM users WHERE username = $1";
+    let values = [username];
+    return pool.query(sql,values); //return the promise
+}
+
+//-------------------------------
+dbMethods.createUser = function(username, password, salt){
+    let sql = "INSERT INTO users (id, username, password, salt) VALUES(DEFAULT, $1, $2, $3) returning *";
+    let values = [username, password, salt];
+    return pool.query(sql, values); //return the promise
+}
+
+//-------------------------------
+dbMethods.deleteUser = function(id) {
+    let sql = "DELETE FROM users WHERE id = $1 RETURNING *";
+    let values = [id];
+    return pool.query(sql, values); //return the promise 
+}
+
+
+
 // export dbMethods ----------------------------
 module.exports = databaseMethods;
 
