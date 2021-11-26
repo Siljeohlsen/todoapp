@@ -7,6 +7,20 @@ server.set("port", PORT);
 const lists = require("./modules/lists.js");
 
 
+const authUtils = require("./modules/auth_utils.js");
+
+let hash = authUtils.createHash("Olsen");
+console.log(hash);
+
+let token = authUtils.createToken("Silje", 1);
+console.log(token);
+
+let payload = authUtils.verifyToken(token);
+console.log(payload);
+
+
+
+
 // middleware ---------------------------
 server.use(express.static("public"));
 server.use(express.json());
