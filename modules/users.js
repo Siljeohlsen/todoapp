@@ -66,9 +66,6 @@ router.get("/users", async function(req, res, next){
 // create new user -----------------------
 router.post("/users", async function(req, res, next){
     
-    /*
-
-    
     let credString = req.headers.authorization;
     let cred = authUtils.decodeCred(credString);
 
@@ -92,7 +89,7 @@ router.post("/users", async function(req, res, next){
     catch(err) {
         next(err);
     }
-*/    
+  
 });
 
 // delete a user -----------------------
