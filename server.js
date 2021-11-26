@@ -39,5 +39,5 @@ server.use(function (err, req, res, next) {
 
 // start server ------------------------
 server.listen(server.get("port"), function () {
-	//console.log("server running", server.get("port"));
+	console.log("server running");
 });
