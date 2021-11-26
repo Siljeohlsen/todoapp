@@ -5,8 +5,9 @@ const PORT = process.env.PORT || 8080;
 server.set("port", PORT);
 
 const lists = require("./modules/lists.js");
+const users = require("./modules/users.js");
 
-
+/*
 const authUtils = require("./modules/auth_utils.js");
 
 let hash = authUtils.createHash("Olsen");
@@ -17,7 +18,7 @@ console.log(token);
 
 let payload = authUtils.verifyToken(token);
 console.log(payload);
-
+*/
 
 
 
@@ -26,6 +27,7 @@ server.use(express.static("public"));
 server.use(express.json());
 
 server.use(lists);
+server.use(users);
 
 //error handling
 server.use(function (err, req, res, next) {
