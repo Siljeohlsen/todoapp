@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>TestClient</title>
+</head>
+<body>
+
+    <!----------- HTML-elements -------------->
+    <input id ="inpHeading" type="text" /><br>
+    <textarea id="inpListtext" cols="80" rows="10"></textarea><br>
+    <button id="btnCreate">Create list</button><br>
+    <h3 id="txtResult">Result...</h3>
+        
+    <!------------- JavaScript --------------->
+    <script>
+        let inpHeading = document.getElementById('inpHeading');
+        let inpListtext = document.getElementById('inpListtext');
+        let btnCreate = document.getElementById('btnCreate');
+        let txtResult = document.getElementById('txtResult');
+
+    btnCreate.addEventListener('click', async function(evt) {
+
+        let url = "/todoapp";
+
+        let updata = {
+            heading: inpHeading.value,
+            listtext: inpListtext.value
+        }
+
+        let cfg = {
+            method: "POST",
+            headers: {"content-type":"application/json"},
+            body: JSON.stringify(updata)
+        }
+
+        try {
+            let response = await fetch(url, cfg);
+            let data = await response.json();
+
+            if (response.status != 200) {
+                throw data.error;
+
+            }
+
+            txtResult.innerHTML = data.msg;
+
+
+        }
+        catch(error) {
+            console.log(error);
+            txtResult.innerHTML = "Something went wrong - check the console window";
+        }
+    });
+
+    sendRequest();
+
+    </script>
+
+    <!---------------- CSS ------------------->
+    <style>        
+
+    </style>
+
+</body>
+
+</html>
