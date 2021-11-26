@@ -1,0 +1,44 @@
+Github URL
+https://github.com/Siljeohlsen/todoapp.git
+
+Heroku URL
+
+What was your project about
+
+In your own words describe what the goals of the project was. (~2 paragraphs)
+
+What features did you impliment?
+
+Outline key features you have implemented (1 paragraph each)
+
+Interesting technical solutions
+
+Emphasise interesting technical solutions that you have adopted (1/2 to 1 page)
+
+Problems
+
+Outline known non-trivial issues and causes and possible solutions (1/2 page)
+
+Additional features
+
+Explain and rave about functionality that is in addition to the requirements. (1 page)
+
+Future improvments
+
+Discuss future improvements. (1/2 page)
+
+Tecnology stack
+
+Comment on the technology stack. (1/2 page)
+
+Process
+
+Outline the project process (how your group worked) and reflect. (1/2 to 1 page)
+
+Learning outcomes
+
+Summarise learning outcomes. (1/2 to 1 page)
+
+Conclusions
+
+Have some sort of conclusion that sums up your work, learning etc.(1/2 to 1 page)
