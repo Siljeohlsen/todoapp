@@ -57,7 +57,6 @@ dbMethods.deleteUser = function(id) {
     return pool.query(sql, values); //return the promise 
 }
 
-// DETTE ER EN TEST
 
 // export dbMethods ----------------------------
 module.exports = databaseMethods;
