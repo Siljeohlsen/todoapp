@@ -29,6 +29,20 @@ databaseMethods.deleteLists = function(id, userid) {
     return pool.query(sql, values); //return the promise
 }
 
+// ----- List Items ----- 
+
+databaseMethods.getListItems = function(listid){
+    let sql = "SELECT * FROM listitems WHERE listid = $1"; 
+    let values = [listid];
+    return pool.query(sql); //return the promise
+}
+
+databaseMethods.createListItems = function(text){
+    let sql = "INSERT INTO listitems (text) VALUES(DEFAULT, $1) returning*";
+    values = [text];
+    return pool.query(sql, values);
+}
+
 // Users -----------------------
 
 databaseMethods.getAllUsers = function(){

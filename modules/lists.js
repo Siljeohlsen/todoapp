@@ -18,7 +18,7 @@ router.get("/todoapp", protect, async function(req, res, next) {
 	}
 });
 
-router.post("/todoapp", protect, async function(req, res, next) {
+router.post("/todoapp",  protect,  async function(req, res, next) {
 
 	let updata = req.body;
 	let userid = res.locals.userid;
@@ -50,6 +50,28 @@ router.delete("/todoapp", protect, async function(req, res, next) {
 		}
 		else{
 			throw "The list couldn't be deleted";
+		}
+	}
+	catch(err) {
+		next(err);
+	}
+});
+
+//------ Listitems
+
+router.post("/todoapp/listitems",   protect,  async function(req, res, next) {
+
+	let updata = req.body;
+	let userid = res.locals.userid;
+
+	try{
+		let data = await database.createListItems(updata.text, userid);
+
+		if (data.rows.length > 0) {
+			res.status(200).json({msg: "The lists were created succesfully"}).end();
+		}
+		else{
+			throw "The lists couldn't be created";
 		}
 	}
 	catch(err) {

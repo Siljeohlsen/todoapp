@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>TestClient</title>
+</head>
+<body>
+
+    <!----------- HTML-elements -------------->
+    <h1> Account settings </h1>
+    <input id="inpUsername" type="text" placeholder="User name"/>
+    <input id="inpPassword" type="text" placeholder="Password"/> <br><br>
+
+
+    <button id="updateUsername"> Update username</button> 
+    <button id="btnDeleteuser">Delete your user </button> 
+    
+
+    
+    <!------------- JavaScript --------------->
+    <script>
+
+    let inpUsername = document.getElementById('inpUsername');
+    let inpPassword = document.getElementById('inpPassword');
+    let btnDeleteuser = document.getElementById('btnDeleteuser');
+
+
+    btnDeleteuser.addEventListener('click', async function(evt){
+
+    let url = "/users";
+
+    let token = localStorage.getItem("token");
+
+        let updata = {
+            id: userId
+        }
+
+        let cfg = {
+            method: "DELETE",
+            headers: {
+                "content-type":"application/json",
+                "authorization": token
+            },
+            body: JSON.stringify(updata)
+        }
+        try {
+            let response = await fetch(url, cfg);
+            let data = await response.json();
+
+            if (response.status != 200) {
+                throw data.error;
+            }
+
+        
+        }
+        catch(error) {
+            console.log(error);
+        }
+    }); 
+
+
+
+    
+    </script>
+
+    <!---------------- CSS ------------------->
+    <style>        
+
+        body {
+            background-color: rgb(255, 188, 188, 0.4);
+            padding: 5px;
+            border-style: solid 5px rgb(77, 48, 48);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: xx-large;
+            color: rgb(70, 40, 40);  
+        }
+
+        h3 {
+            color: rgb(70, 40, 40);
+        }
+
+        #inpUsername {
+            border-radius: 7px;
+            background-color: lavender;
+            border-color: rgb(255, 188, 188, 0.4);
+            margin-bottom: 5px;
+        }
+
+        #inpPassword {
+            border-radius: 7px;
+            background-color: lavender;
+            border-color: rgb(255, 188, 188, 0.4);
+            margin-bottom: 5px;
+        }
+
+        #btnCreate {
+            color: rgb(70, 40, 40);
+            background-color: lavender;
+            border-radius: 7px;
+            border-color: rgb(255, 188, 188, 0.4);
+        }
+
+        #btnCreate:hover {
+            background-color: rgb(219, 163, 163, 0.7);
+            border-radius: 7px;
+            border-color:  rgb(255, 188, 188, 0.4);
+        }
+        
+    </style>
+
+</body>
+
+</html>

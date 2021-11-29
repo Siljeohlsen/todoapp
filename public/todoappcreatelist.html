@@ -13,8 +13,10 @@
     <textarea id="inpListtext" cols="80" rows="10"></textarea><br>
     <button id="btnCreate">Create list</button><br>
     <h3 id="txtResult">Result...</h3>
-
+        
+    
     <div id="container"></div>
+
     <!------------- JavaScript --------------->
     <script>
         let inpHeading = document.getElementById('inpHeading');
@@ -22,13 +24,16 @@
         let btnCreate = document.getElementById('btnCreate');
         let txtResult = document.getElementById('txtResult');
 
+        let listItemsInput = document.getElementById('inputListItems');
+
     btnCreate.addEventListener('click', async function(evt) {
 
         let url = "/todoapp";
 
         let updata = {
             heading: inpHeading.value,
-            listtext: inpListtext.value
+            listtext: inpListtext.value,
+            
         }
 
         let token = localStorage.getItem("token");
@@ -50,21 +55,17 @@
                 throw data.error;
 
             }
-
-            txtResult.innerHTML = data.msg;
-
-
+        
+            txtResult.innerHTML = data.msg; //beskjed om det funket eller ikke
+            
         }
         catch(error) {
             console.log(error);
             txtResult.innerHTML = "Something went wrong - check the console window";
         }
-        window.location.reload();
+        // window.location.reload();
     });
     
-
-    
-
     let container = document.getElementById('container');
 
         async function listTodoLists() {
@@ -85,6 +86,7 @@
                 if (response.status != 200) {
                     throw data.error;
                 }
+                // trenger jeg en ny try??
 
                 container.innerHTML = "";
 
@@ -94,6 +96,8 @@
 
                     
                     let html = "<h2>" + value.heading + "</h2>";
+                    // ny løkke
+
                     html += "<p>" + date.toLocaleDateString() + "</p>";
                     html += "<p>" + value.listtext + "</p><hr>";
 
@@ -151,10 +155,7 @@
         }
 
         listTodoLists();
-        // sendRequest();
-
       
-
     </script>
 
     <!---------------- CSS ------------------->
