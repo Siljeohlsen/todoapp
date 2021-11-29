@@ -33,7 +33,7 @@
         let updata = {
             heading: inpHeading.value,
             listtext: inpListtext.value,
-            listItemsInput : listItemsInput.value
+            
         }
 
         let token = localStorage.getItem("token");
@@ -55,18 +55,15 @@
                 throw data.error;
 
             }
-            
-
+        
             txtResult.innerHTML = data.msg; //beskjed om det funket eller ikke
             
-
-
         }
         catch(error) {
             console.log(error);
             txtResult.innerHTML = "Something went wrong - check the console window";
         }
-        window.location.reload();
+        // window.location.reload();
     });
     
     let container = document.getElementById('container');
