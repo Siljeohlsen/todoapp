@@ -15,14 +15,18 @@
 
     <button id="btnLogin"> Login </button><br>
     <h3 id="txtResult">Result...</h3>
+    <h4 id="txtResult">New user?</h4>
+    <button id="btnCreateuser">Create your Todo App account</button>
+    
 
     
     <!------------- JavaScript --------------->
     <script>
 
-       let inpUsername = document.getElementById('inpUsername');
+        let inpUsername = document.getElementById('inpUsername');
         let inpPassword = document.getElementById('inpPassword');
         let btnLogin = document.getElementById('btnLogin');
+        let btnCreateuser = document.getElementById('btnCreateuser');
         let txtResult = document.getElementById('txtResult');
 
 
@@ -61,6 +65,14 @@ function createCredentialString(username, password) {
     let b64Str = btoa(combinedStr);
     return "basic " + b64Str;
 }
+
+btnCreateuser.addEventListener('click', function(evt) {
+
+window.location.href = "createuser.html"; 
+});
+
+
+
     
     </script>
 
