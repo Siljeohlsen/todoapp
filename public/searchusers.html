@@ -8,6 +8,7 @@
 <body>
 
     <!----------- HTML-elements -------------->
+    <button id="btnHome">Back to Home</button>
     <h1>View other user's lists</h1>
     <h4> Search other users </h4>
 
@@ -16,7 +17,7 @@
 
     <button id="btnLogin"> Login </button>
     <h3 id="txtResult"></h3>
-    <button id="btnCreateuser">Create your Todo App account</button>
+
         
     <!------------- JavaScript --------------->
     <script>
@@ -24,10 +25,16 @@
 
 let inpUsername = document.getElementById('inpUsername');
 let inpPassword = document.getElementById('inpPassword');
+let btnHome = document.getElementById('btnHome');
 let btnLogin = document.getElementById('btnLogin');
 let btnDeleteuser = document.getElementById('btnDeleteuser');
 let btnCreateuser = document.getElementById('btnCreateuser');
 let txtResult = document.getElementById('txtResult');
+
+btnHome.addEventListener('click', async function(evt){
+    window.location.href = "index.html";
+    
+    });
 
 
 btnLogin.addEventListener('click', async function(evt) {

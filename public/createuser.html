@@ -8,6 +8,7 @@
 <body>
 
     <!----------- HTML-elements -------------->
+    <button id="btnHome">Back to Home</button>
     <h1> Create new user </h1>
     <input id="inpUsername" type="text" placeholder="User name"/>
     <input id="inpPassword" type="password" placeholder="Password"/> <br><br>
@@ -21,8 +22,16 @@
 
        let inpUsername = document.getElementById('inpUsername');
         let inpPassword = document.getElementById('inpPassword');
+        let btnHome = document.getElementById('btnHome');
         let btnCreate = document.getElementById('btnCreate');
         let txtResult = document.getElementById('txtResult');
+
+    // Back to home button  -----------------------
+    btnHome.addEventListener('click', async function(evt){
+    window.location.href = "index.html";
+    
+    });
+
 
 
         btnCreate.addEventListener('click', async function(evt) {
