@@ -23,9 +23,9 @@ databaseMethods.createLists = function(heading, listtext, userid) {
 }
 
 // ----------------------------
-databaseMethods.deleteLists = function(id) {
-    let sql = "DELETE FROM todoapp WHERE id = $1 RETURNING*";
-    let values = [id];
+databaseMethods.deleteLists = function(id, userid) {
+    let sql = "DELETE FROM todoapp WHERE id = $1 AND userid = $2 RETURNING*";
+    let values = [id, userid];
     return pool.query(sql, values); //return the promise
 }
 

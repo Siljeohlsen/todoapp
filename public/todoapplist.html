@@ -19,8 +19,15 @@
 
             let url = "/todoapp";
 
+            let token = localStorage.getItem("token");
+
+            let cfg = {
+                method: "GET",
+                headers: {"authorization": token}
+            };
+
             try {
-                let response = await fetch(url);
+                let response = await fetch(url, cfg);
                 let data = await response.json();
 
                 if (response.status != 200) {
@@ -61,6 +68,7 @@
         async function deleteTodoLists(todoappId) {
 
             let url = "/todoapp";
+            let token = localStorage.getItem("token");
 
             let updata = {
                 id: todoappId
@@ -68,7 +76,10 @@
 
             let cfg = {
                 method: "DELETE",
-                headers: {"content-type":"application/json"},
+                headers: {
+                    "content-type":"application/json",
+                    "authorization": token
+                },
                 body: JSON.stringify(updata)
             }
 
