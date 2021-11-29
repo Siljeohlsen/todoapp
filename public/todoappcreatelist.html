@@ -14,7 +14,7 @@
     <button id="btnCreate">Create list</button><br>
     <h3 id="txtResult">Result...</h3>
         
-    <input id="inputListItems" type="text"/>
+    
     <div id="container"></div>
 
     <!------------- JavaScript --------------->
@@ -158,8 +158,7 @@
         }
 
         listTodoLists();
-      // sendRequest();        ?????
-
+      
     </script>
 
     <!---------------- CSS ------------------->
@@ -214,6 +213,16 @@
             border-radius: 7px;
             border-color:  rgb(255, 188, 188, 0.4);
         }
+
+        #container {
+            display: grid;
+            grid-template-columns: 300px 300px 300px;
+            grid-template-rows: auto;
+            margin-left: 150px;
+            margin-right: 150px;
+            color: rgb(70, 40, 40);
+        }
+
     </style>
 
 </body>
