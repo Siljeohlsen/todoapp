@@ -33,6 +33,7 @@
                 if (response.status != 200) {
                     throw data.error;
                 }
+                // trenger jeg en ny try??
 
                 container.innerHTML = "";
 
@@ -42,6 +43,8 @@
 
                     
                     let html = "<h2>" + value.heading + "</h2>";
+                    // ny løkke
+
                     html += "<p>" + date.toLocaleDateString() + "</p>";
                     html += "<p>" + value.listtext + "</p><hr>";
 
