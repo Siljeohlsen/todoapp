@@ -12,21 +12,17 @@
     <h4> Search other users </h4>
 
     <input id="inpUsername" type="text"/>  <br>
-    <input id="inpPassword" type="password" cols="20" rows="10"/> <br>
 
-    <button id="btnLogin"> Login </button>
+    <button id="btnSearch"> Seach </button>
     <h3 id="txtResult"></h3>
-    <button id="btnCreateuser">Create your Todo App account</button>
+
         
     <!------------- JavaScript --------------->
     <script>
            
 
 let inpUsername = document.getElementById('inpUsername');
-let inpPassword = document.getElementById('inpPassword');
-let btnLogin = document.getElementById('btnLogin');
-let btnDeleteuser = document.getElementById('btnDeleteuser');
-let btnCreateuser = document.getElementById('btnCreateuser');
+let btnSearch = document.getElementById('btnLogin');
 let txtResult = document.getElementById('txtResult');
 
 
@@ -56,21 +52,6 @@ btnLogin.addEventListener('click', async function(evt) {
         console.log(error);
         txtResult.innerHTML = "Something went wrong - check the console window";
     }
-});
-
-
-//-------------------------------------------
-function createCredentialString(username, password) {
-let combinedStr = username + ":" + password;
-let b64Str = btoa(combinedStr);
-return "basic " + b64Str;
-}
-
-
-btnCreateuser.addEventListener('click', function(evt) {
-
-window.location.href = "createuser.html"; 
-
 });
 
 
@@ -107,42 +88,18 @@ window.location.href = "createuser.html";
 
         }
 
-        #inpPassword {
-            border-radius: 7px;
-            background-color: lavender;
-            border-color: rgb(255, 188, 188, 0.4);
-            margin-bottom: 5px;
-            
-        }
-
-        #btnLogin {
+        #btnSearch {
             color: rgb(70, 40, 40);
             background-color: lavender;
             border-radius: 7px;
             border-color: rgb(255, 188, 188, 0.4);
         }
 
-        #btnLogin:hover {
+        #btnSearch:hover {
             background-color: rgb(219, 163, 163, 0.7);
             border-radius: 7px;
             border-color:  rgb(255, 188, 188, 0.4);
         }   
-
-        #btnCreateuser {
-            color: rgb(70, 40, 40);
-            background-color: lavender;
-            border-radius: 7px;
-            border-color: rgb(255, 188, 188, 0.4);
-            width: 150px;
-            height: 60px;
-            font-size: medium;
-        }
-
-        #btnCreateuser:hover {
-            background-color: rgb(219, 163, 163, 0.7);
-            border-radius: 7px;
-            border-color: rgb(255, 188, 188, 0.4);
-        }
 
     </style>
 
