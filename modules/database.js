@@ -17,7 +17,7 @@ databaseMethods.getAllLists = function() {
 
 // Create lists ----------------------------
 databaseMethods.createLists = function(heading, userid) {
-    let sql = "INSERT INTO todoapp (id, heading, userid) VALUES(DEFAULT, DEFAULT, $1, $2, $3) returning*";
+    let sql = "INSERT INTO todoapp (heading, userid) VALUES($1, $2) returning *";
     let values = [heading, userid];
     return pool.query(sql, values); //return the promise
 }

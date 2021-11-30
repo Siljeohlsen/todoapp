@@ -19,6 +19,7 @@
     
     <div id="container"></div>
     <!---- <div id="container2"></div> --->
+
     <!------------- JavaScript --------------->
     <script>
         
@@ -28,13 +29,13 @@
     
         });
 
-
         let inpHeading = document.getElementById('inpHeading');
-        // let inpListtext = document.getElementById('inpListtext'); 
         let btnCreate = document.getElementById('btnCreate');
         let txtResult = document.getElementById('txtResult');
 
-       // let listItemsInput = document.getElementById('inputListItems');
+
+        // let inpListtext = document.getElementById('inpListtext'); 
+        // let listItemsInput = document.getElementById('inputListItems');
 
     btnCreate.addEventListener('click', async function(evt) {
 
@@ -55,10 +56,12 @@
             },
             body: JSON.stringify(updata)
         }
-
+        
         try {
             let response = await fetch(url, cfg);
             let data = await response.json();
+
+
 
             if (response.status != 200) {
                 throw data.error;
@@ -98,7 +101,7 @@
                 if (response.status != 200) {
                     throw data.error;
                 }
-                // trenger jeg en ny try??
+                
 
                 container.innerHTML = "";
 
