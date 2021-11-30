@@ -1,0 +1,62 @@
+
+
+
+
+listListItems()
+
+
+async function listListItems() {
+
+            
+
+            let token = localStorage.getItem("token");
+            let listeid = localStorage.getItem("listid");
+
+            let url = "/listitems?listid=" + listeid;
+
+            let cfg = {
+                method: "GET",
+                headers: {"authorization": token}
+            };
+
+            try {
+                let response = await fetch(url, cfg);
+                let data = await response.json();
+
+                if (response.status != 200) {
+                    throw data.error;
+                }
+                // trenger jeg en ny try??
+
+                container.innerHTML = "";
+
+                for (let value of data) {
+                    
+                    let date = new Date(value.date);
+
+                    
+                    let html = "<h2>" + value.heading + "</h2>";
+                    // ny løkke
+
+                    html += "<p>" + date.toLocaleDateString() + "</p>";
+                    html += "<p>" + value.listtext + "</p><hr>";
+
+                    let div = document.createElement("div");
+                    div.innerHTML = html;
+                    container.appendChild(div);
+
+                    let delbtn = document.createElement("button");
+                    delbtn.innerHTML = "Delete";
+
+                    delbtn.addEventListener('click', function(evt) {
+                        deleteTodoLists(value.id);
+                    }); 
+
+                    div.insertBefore(delbtn, div.lastElementChild);
+                    
+                }
+            }
+            catch(error) {
+                console.log(error);
+            }
+        }

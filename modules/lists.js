@@ -24,7 +24,7 @@ router.post("/todoapp",  protect,  async function(req, res, next) {
 	let userid = res.locals.userid;
 
 	try{
-		let data = await database.createLists(updata.heading, updata.listtext, userid);
+		let data = await database.createLists(updata.heading, userid);
 
 		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The lists were created succesfully"}).end();
@@ -57,15 +57,28 @@ router.delete("/todoapp", protect, async function(req, res, next) {
 	}
 });
 
-//------ Listitems
+//------ Listitems Aner ikke om dette funker
 
-router.post("/todoapp/listitems",   protect,  async function(req, res, next) {
-
-	let updata = req.body;
-	let userid = res.locals.userid;
+router.get("/listitems", protect, async function(req, res, next) {
+	
+	let listid = req.query.listid;
 
 	try{
-		let data = await database.createListItems(updata.text, userid);
+		let data = await database.getListItems(listid);
+		res.status(200).json(data.rows).end();
+	}
+	catch(err) {
+		next(err);
+	}
+});
+
+router.post("/todoapp/listitems",  protect, async function(req, res, next) {
+
+	let updata = req.body;
+	let listid = res.locals.listid;
+
+	try{
+		let data = await database.createListItems(updata.text, listid);
 
 		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The lists were created succesfully"}).end();
@@ -79,4 +92,25 @@ router.post("/todoapp/listitems",   protect,  async function(req, res, next) {
 	}
 });
 
+/*
+
+router.delete("/listitems", protect, async function(req, res, next) {
+
+	let updata = req.body;
+	let listid = res.locals.listid;
+
+	try{
+		let data = await database.deleteLists(updata.id, userid);
+		if (data.rows.length > 0) {
+			res.status(200).json({msg: "The list was deleted succesfully"}).end();
+		}
+		else{
+			throw "The list couldn't be deleted";
+		}
+	}
+	catch(err) {
+		next(err);
+	}
+});
+*/ 
 module.exports = router;
