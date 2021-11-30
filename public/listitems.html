@@ -1,19 +1,19 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <title>TestClient</title>
+    <title>ListItems</title>
 </head>
 <body>
 
     <!----------- HTML-elements -------------->
     <div id="container"></div>
+    <h1>VAGUNA</h1>
         
     <!------------- JavaScript --------------->
     <script>
-
-        
+     
 
 listListItems()
 
@@ -23,9 +23,9 @@ async function listListItems() {
             
 
             let token = localStorage.getItem("token");
-            let listitemsid = localStorage.getItem("listid");
+            let listid = localStorage.getItem("listid");
 
-            let url = "/listitems?listid=" + listitemsid;
+            let url = "/list?listid=" + listid;
 
             let cfg = {
                 method: "GET",
@@ -51,9 +51,6 @@ async function listListItems() {
                     let html = "<h2>" + value.heading + "</h2>";
                     // ny løkke
 
-                    html += "<p>" + date.toLocaleDateString() + "</p>";
-                    html += "<p>" + value.listtext + "</p><hr>";
-
                     let div = document.createElement("div");
                     div.innerHTML = html;
                     container.appendChild(div);
@@ -62,7 +59,7 @@ async function listListItems() {
                     delbtn.innerHTML = "Delete";
 
                     delbtn.addEventListener('click', function(evt) {
-                        deleteTodoLists(value.id);
+                        deleteTodoLists(value.listid);
                     }); 
 
                     div.insertBefore(delbtn, div.lastElementChild);
