@@ -8,18 +8,27 @@
 <body>
 
     <!----------- HTML-elements -------------->
+    <button id="btnHome">Back to Home</button>
     <h1>Create new list</h1>
 
     <input id ="inpHeading" type="text" /><br>
    <!--  <textarea id="inpListtext" cols="80" rows="10"></textarea>-->
     <button id="btnCreate">Create list</button><br>
-    <h3 id="txtResult">Result...</h3>
+    <h3 id="txtResult"></h3>
         
     
     <div id="container"></div>
     <!---- <div id="container2"></div> --->
     <!------------- JavaScript --------------->
     <script>
+        
+        // Back to home button ---------
+        btnHome.addEventListener('click', async function(evt){
+        window.location.href = "index.html";
+    
+        });
+
+
         let inpHeading = document.getElementById('inpHeading');
         // let inpListtext = document.getElementById('inpListtext'); 
         let btnCreate = document.getElementById('btnCreate');
@@ -277,13 +286,23 @@ catch(error) {
             border-color:  rgb(255, 188, 188, 0.4);
         }
 
-        #container {
-            display: grid;
-            grid-template-columns: 300px 300px 300px;
-            grid-template-rows: auto;
-            margin-left: 150px;
-            margin-right: 150px;
+        #btnHome {
             color: rgb(70, 40, 40);
+            background-color: lavender;
+            border-radius: 7px;
+            border-color: rgb(255, 188, 188, 0.4);
+        }
+
+        #btnHome:hover {
+            background-color: rgb(219, 163, 163, 0.7);
+            border-radius: 7px;
+            border-color:  rgb(255, 188, 188, 0.4);
+        }
+
+        #container {
+            width: 100%;
+            aspect-ratio: 100/29;
+            margin-left: 50px;
         }
 
     </style>
