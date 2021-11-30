@@ -9,11 +9,11 @@
 
     <!----------- HTML-elements -------------->
     <div id="container"></div>
-    <h1>VAGUNA</h1>
         
     <!------------- JavaScript --------------->
     <script>
-     
+
+  let listid = localStorage.getItem("listid");    
 
 listListItems()
 
@@ -21,9 +21,7 @@ listListItems()
 async function listListItems() {
 
             
-
             let token = localStorage.getItem("token");
-            let listid = localStorage.getItem("listid");
 
             let url = "/list?listid=" + listid;
 
@@ -39,14 +37,11 @@ async function listListItems() {
                 if (response.status != 200) {
                     throw data.error;
                 }
-                // trenger jeg en ny try??
-
+              
                 container.innerHTML = "";
 
                 for (let value of data) {
                     
-                    let date = new Date(value.date);
-
                     
                     let html = "<h2>" + value.heading + "</h2>";
                     // ny løkke
