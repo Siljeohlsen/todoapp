@@ -16,9 +16,9 @@ databaseMethods.getAllLists = function() {
 }
 
 // ----------------------------
-databaseMethods.createLists = function(heading, listtext, userid) {
-    let sql = "INSERT INTO todoapp (id, date, heading, listtext, userid) VALUES(DEFAULT, DEFAULT, $1, $2, $3) returning*";
-    let values = [heading, listtext, userid];
+databaseMethods.createLists = function(heading, userid) {
+    let sql = "INSERT INTO todoapp (id, date, heading, userid) VALUES(DEFAULT, DEFAULT, $1, $2, $3) returning*";
+    let values = [heading, userid];
     return pool.query(sql, values); //return the promise
 }
 
@@ -29,7 +29,7 @@ databaseMethods.deleteLists = function(id, userid) {
     return pool.query(sql, values); //return the promise
 }
 
-// ----- List Items ----- 
+// ----- List Items ----- DETTE ER RIKTIG
 
 databaseMethods.getListItems = function(listid){
     let sql = "SELECT * FROM listitems WHERE listid = $1"; 

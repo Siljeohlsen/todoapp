@@ -8,7 +8,6 @@
 <body>
 
     <!----------- HTML-elements -------------->
-    <button id="btnHome">Back to Home</button>
     <h1>Create new list</h1>
     <input id ="inpHeading" type="text" /><br>
     <textarea id="inpListtext" cols="80" rows="10"></textarea><br>
@@ -17,22 +16,15 @@
         
     
     <div id="container"></div>
-
+    <div id="container2"></div>
     <!------------- JavaScript --------------->
     <script>
         let inpHeading = document.getElementById('inpHeading');
-        let inpListtext = document.getElementById('inpListtext');
-        let btnHome = document.getElementById('btnHome');
+        let inpListtext = document.getElementById('inpListtext'); 
         let btnCreate = document.getElementById('btnCreate');
         let txtResult = document.getElementById('txtResult');
 
         let listItemsInput = document.getElementById('inputListItems');
-
-    btnHome.addEventListener('click', async function(evt){
-    window.location.href = "index.html";
-    
-    });
-
 
     btnCreate.addEventListener('click', async function(evt) {
 
@@ -40,7 +32,6 @@
 
         let updata = {
             heading: inpHeading.value,
-            listtext: inpListtext.value,
             
         }
 
@@ -118,16 +109,69 @@
 
                     delbtn.addEventListener('click', function(evt) {
                         deleteTodoLists(value.id);
-                    });
+                    }); 
 
                     div.insertBefore(delbtn, div.lastElementChild);
-     
+                    
                 }
             }
             catch(error) {
                 console.log(error);
             }
         }
+
+        // ------- List List items 
+
+        let container2 = document.getElementById('container2');
+
+        async function listListItems() {
+
+let url = "/listitems";
+
+let token = localStorage.getItem("token");
+
+let cfg = {
+    method: "GET",
+    headers: {"authorization": token}
+};
+
+try {
+    let response = await fetch(url, cfg);
+    let data = await response.json();
+
+    if (response.status != 200) {
+        throw data.error;
+    }
+    // trenger jeg en ny try??
+
+    container2.innerHTML = "";
+
+    for (let value of data) {
+        
+        let html2 = "<h2>" + value.text + "</h2>";
+        // ny løkke
+
+        let div2 = document.createElement("div");
+        div2.innerHTML = html2;
+        container2.appendChild(div2);
+
+        let delbtn2 = document.createElement("button");
+        delbtn2.innerHTML = "Delete";
+
+        delbtn2.addEventListener('click', function(evt) {
+            deleteTodoLists(value.id);
+        });
+
+        div2.insertBefore(delbtn2, div2.lastElementChild);
+
+    }
+}
+catch(error) {
+    console.log(error);
+}
+}
+
+        // ------- Delete Lists
 
         async function deleteTodoLists(todoappId) {
 
