@@ -8,6 +8,7 @@
 <body>
 
     <!----------- HTML-elements -------------->
+    <button id="btnHome">Back to Home</button>
     <h1>Create new list</h1>
     <input id ="inpHeading" type="text" /><br>
     <textarea id="inpListtext" style="width:100%;" cols="80" rows="10"></textarea><br>
@@ -15,16 +16,19 @@
     <h3 id="txtResult"></h3>
         
     
-<<<<<<< HEAD
     <div id="container" style="width:100%;" class="row-padding"></div>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-=======
-    <div id="container"></div>
-    <div id="container2"></div>
->>>>>>> 72c7fbfbe04c8c48d0525512ffb28be87f8fc155
     <!------------- JavaScript --------------->
     <script>
+        
+        // Back to home button ---------
+        btnHome.addEventListener('click', async function(evt){
+        window.location.href = "index.html";
+    
+        });
+
+
         let inpHeading = document.getElementById('inpHeading');
         let inpListtext = document.getElementById('inpListtext'); 
         let btnCreate = document.getElementById('btnCreate');
