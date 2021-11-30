@@ -14,9 +14,9 @@
     <h1>Create new list</h1>
 
     <input id ="inpHeading" type="text" /><br>
+   <!--  <textarea id="inpListtext" cols="80" rows="10"></textarea>-->
     <button id="btnCreate">Create list</button><br>
     <h3 id="txtResult"></h3>
-    
         
     
     <div id="container" style="width:100%;" class="row-padding"></div>
@@ -33,7 +33,6 @@
         let inpHeading = document.getElementById('inpHeading');
         let btnCreate = document.getElementById('btnCreate');
         let txtResult = document.getElementById('txtResult');
-        
 
 
         // let inpListtext = document.getElementById('inpListtext'); 
@@ -41,7 +40,7 @@
 
     btnCreate.addEventListener('click', async function(evt) {
 
-        let url = "/list";
+        let url = "/todoapp";
 
         let updata = {
             heading: inpHeading.value,
@@ -87,7 +86,7 @@
 
         async function listTodoLists() {
 
-            let url = "/list";
+            let url = "/todoapp";
 
             let token = localStorage.getItem("token");
 
@@ -109,39 +108,35 @@
 
                 for (let value of data) {
                     
-                  
+                  //  let date = new Date(value.date);
 
                     
                     let html = "<h2>" + value.heading + "</h2>";
-                
+                    // ny løkke
+
+                   // html += "<p>" + date.toLocaleDateString() + "</p>";
+                  //   html += "<p>" + value.listtext + "</p><hr>";
 
                     let div = document.createElement("div");
                     div.innerHTML = html;
                     container.appendChild(div);
 
-
-
                     let delbtn = document.createElement("button");
                     delbtn.innerHTML = "Delete";
-                    delbtn.dataset.id = value.listid
-                    
+
                     delbtn.addEventListener('click', function(evt) {
-                        deleteTodoLists(evt.currentTarget.dataset.id);
+                        deleteTodoLists(value.id);
                     });
-
-
-                    let itemsbtn = document.createElement("button");
-                    itemsbtn.innerHTML = "Go to list";
-
+/*
                     itemsbtn.addEventListener('click', function(evt) {
 
-                        let listid = value.listid
-                        localStorage.setItem("listid", listid);
-                        location.href = "listitems.html";
+                        let listeid = value.id
+                        localStorage.setItem("listid", listeid);
+                        location.href = "listListitems.html";
 
                     });
-                    
-                    div.insertBefore(itemsbtn, div.lastElementChild);
+                    */
+
                     div.insertBefore(delbtn, div.lastElementChild);
                     
                 }
@@ -152,16 +147,66 @@
         }
 
         listTodoLists();
+        // ------- List List items 
+/* 
+        let container2 = document.getElementById('container2');
+
+        async function listListItems() {
+
+let url = "/listitems";
+
+let token = localStorage.getItem("token");
+
+let cfg = {
+    method: "GET",
+    headers: {"authorization": token}
+};
+
+try {
+    let response = await fetch(url, cfg);
+    let data = await response.json();
+
+    if (response.status != 200) {
+        throw data.error;
+    }
+    // trenger jeg en ny try??
+
+    container2.innerHTML = "";
+
+    for (let value of data) {
         
+        let html2 = "<h2>" + value.text + "</h2>";
+        // ny løkke
+
+        let div2 = document.createElement("div");
+        div2.innerHTML = html2;
+        container2.appendChild(div2);
+
+        let delbtn2 = document.createElement("button");
+        delbtn2.innerHTML = "Delete";
+
+        delbtn2.addEventListener('click', function(evt) {
+            deleteTodoLists(value.id);
+        });
+
+        div2.insertBefore(delbtn2, div2.lastElementChild);
+
+    }
+}
+catch(error) {
+    console.log(error);
+}
+}
+*/
         // ------- Delete Lists
 
-        async function deleteTodoLists(listid) {
+        async function deleteTodoLists(todoappId) {
 
-            let url = "/list";
+            let url = "/todoapp";
             let token = localStorage.getItem("token");
 
             let updata = {
-                listid
+                id: todoappId
             }
 
             let cfg = {
