@@ -109,7 +109,15 @@
 
                     delbtn.addEventListener('click', function(evt) {
                         deleteTodoLists(value.id);
-                    }); 
+                    });
+
+                    itemsbtn.addEventListener('click', function(evt) {
+
+                        let listeid = value.id
+                        localStorage.setItem("listid", listeid);
+                        location.href = "listListitems.html";
+
+                    });
 
                     div.insertBefore(delbtn, div.lastElementChild);
                     

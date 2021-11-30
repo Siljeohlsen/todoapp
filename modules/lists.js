@@ -59,13 +59,12 @@ router.delete("/todoapp", protect, async function(req, res, next) {
 
 //------ Listitems Aner ikke om dette funker
 
-router.get("/listitems", /*protect*/ async function(req, res, next) {
+router.get("/listitems", protect, async function(req, res, next) {
 	
-	console.log(res.locals.text);
-	console.log(res.locals.listid);
+	let listid = req.query.listid;
 
 	try{
-		let data = await database.getListItems();
+		let data = await database.getListItems(listid);
 		res.status(200).json(data.rows).end();
 	}
 	catch(err) {
