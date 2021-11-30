@@ -3,29 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <title>TestClient</title>
+    <title>Account Settings</title>
 </head>
 <body>
 
     <!----------- HTML-elements -------------->
+    <button id="btnHome">Back to Home</button>
     <h1> Account settings </h1>
     <input id="inpUsername" type="text" placeholder="User name"/>
-    <input id="inpPassword" type="text" placeholder="Password"/> <br><br>
+    <input id="inpPassword" type="password" placeholder="Password"/> <br><br>
 
-
-    <button id="updateUsername"> Update username</button> 
+    <button id="btnChangepassword"> Change password</button> 
     <button id="btnDeleteuser">Delete your user </button> 
-    
-
     
     <!------------- JavaScript --------------->
     <script>
 
     let inpUsername = document.getElementById('inpUsername');
     let inpPassword = document.getElementById('inpPassword');
+    let btnHome = document.getElementById('btnHome');
+    let btnChangepassword = document.getElementById('btnChangepassword');
     let btnDeleteuser = document.getElementById('btnDeleteuser');
 
+    // Back to home button  -----------------------
+    btnHome.addEventListener('click', async function(evt){
+    window.location.href = "index.html";
+    
+    });
 
+    // Change password -----------------------
+
+    // delete a user -----------------------
     btnDeleteuser.addEventListener('click', async function(evt){
 
     let url = "/users";
@@ -59,7 +67,9 @@
         }
     }); 
 
+    
 
+  
 
     
     </script>

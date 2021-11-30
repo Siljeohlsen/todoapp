@@ -8,23 +8,32 @@
 <body>
 
     <!----------- HTML-elements -------------->
+    <button id="btnHome">Back to Home</button>
     <h1>Create new list</h1>
     <input id ="inpHeading" type="text" /><br>
-    <textarea id="inpListtext" cols="80" rows="10"></textarea><br>
+    <textarea id="inpListtext" style="width:100%;" cols="80" rows="10"></textarea><br>
     <button id="btnCreate">Create list</button><br>
-    <h3 id="txtResult">Result...</h3>
+    <h3 id="txtResult"></h3>
         
     
-    <div id="container"></div>
+    <div id="container" style="width:100%;" class="row-padding"></div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!------------- JavaScript --------------->
     <script>
         let inpHeading = document.getElementById('inpHeading');
         let inpListtext = document.getElementById('inpListtext');
+        let btnHome = document.getElementById('btnHome');
         let btnCreate = document.getElementById('btnCreate');
         let txtResult = document.getElementById('txtResult');
 
         let listItemsInput = document.getElementById('inputListItems');
+
+    btnHome.addEventListener('click', async function(evt){
+    window.location.href = "index.html";
+    
+    });
+
 
     btnCreate.addEventListener('click', async function(evt) {
 
@@ -211,13 +220,23 @@
             border-color:  rgb(255, 188, 188, 0.4);
         }
 
-        #container {
-            display: grid;
-            grid-template-columns: 300px 300px 300px;
-            grid-template-rows: auto;
-            margin-left: 150px;
-            margin-right: 150px;
+        #btnHome {
             color: rgb(70, 40, 40);
+            background-color: lavender;
+            border-radius: 7px;
+            border-color: rgb(255, 188, 188, 0.4);
+        }
+
+        #btnHome:hover {
+            background-color: rgb(219, 163, 163, 0.7);
+            border-radius: 7px;
+            border-color:  rgb(255, 188, 188, 0.4);
+        }
+
+        #container {
+            width: 100%;
+            aspect-ratio: 100/29;
+            margin-left: 50px;
         }
 
     </style>

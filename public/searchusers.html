@@ -8,6 +8,7 @@
 <body>
 
     <!----------- HTML-elements -------------->
+    <button id="btnHome">Back to Home</button>
     <h1>View other user's lists</h1>
     <h4> Search other users </h4>
 
@@ -24,6 +25,11 @@
 let inpUsername = document.getElementById('inpUsername');
 let btnSearch = document.getElementById('btnLogin');
 let txtResult = document.getElementById('txtResult');
+
+btnHome.addEventListener('click', async function(evt){
+    window.location.href = "index.html";
+    
+    });
 
 
 btnLogin.addEventListener('click', async function(evt) {
