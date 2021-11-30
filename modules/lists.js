@@ -18,7 +18,7 @@ router.get("/todoapp", protect, async function(req, res, next) {
 	}
 });
 
-router.post("/todoapp",  protect,  async function(req, res, next) {
+router.post("/todoapp",  protect, async function(req, res, next) {
 
 	let updata = req.body;
 	let userid = res.locals.userid;
@@ -34,6 +34,7 @@ router.post("/todoapp",  protect,  async function(req, res, next) {
 		}
 	}
 	catch(err) {
+		console.log(err)
 		next(err);
 	}
 });
@@ -57,7 +58,7 @@ router.delete("/todoapp", protect, async function(req, res, next) {
 	}
 });
 
-//------ Listitems Aner ikke om dette funker
+//------ Listitems Skal være riktig
 
 router.get("/listitems", protect, async function(req, res, next) {
 	
@@ -72,7 +73,7 @@ router.get("/listitems", protect, async function(req, res, next) {
 	}
 });
 
-router.post("/todoapp/listitems",  protect, async function(req, res, next) {
+router.post("/listitems",  protect, async function(req, res, next) {
 
 	let updata = req.body;
 	let listid = res.locals.listid;
