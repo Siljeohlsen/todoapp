@@ -9,22 +9,23 @@
 
     <!----------- HTML-elements -------------->
     <h1>Create new list</h1>
+
     <input id ="inpHeading" type="text" /><br>
-    <textarea id="inpListtext" cols="80" rows="10"></textarea><br>
+   <!--  <textarea id="inpListtext" cols="80" rows="10"></textarea>-->
     <button id="btnCreate">Create list</button><br>
     <h3 id="txtResult">Result...</h3>
         
     
     <div id="container"></div>
-    <div id="container2"></div>
+    <!---- <div id="container2"></div> --->
     <!------------- JavaScript --------------->
     <script>
         let inpHeading = document.getElementById('inpHeading');
-        let inpListtext = document.getElementById('inpListtext'); 
+        // let inpListtext = document.getElementById('inpListtext'); 
         let btnCreate = document.getElementById('btnCreate');
         let txtResult = document.getElementById('txtResult');
 
-        let listItemsInput = document.getElementById('inputListItems');
+       // let listItemsInput = document.getElementById('inputListItems');
 
     btnCreate.addEventListener('click', async function(evt) {
 
@@ -63,7 +64,10 @@
             txtResult.innerHTML = "Something went wrong - check the console window";
         }
         // window.location.reload();
+        listTodoLists();
     });
+    
+
     
     let container = document.getElementById('container');
 
@@ -91,14 +95,14 @@
 
                 for (let value of data) {
                     
-                    let date = new Date(value.date);
+                  //  let date = new Date(value.date);
 
                     
                     let html = "<h2>" + value.heading + "</h2>";
                     // ny løkke
 
-                    html += "<p>" + date.toLocaleDateString() + "</p>";
-                    html += "<p>" + value.listtext + "</p><hr>";
+                   // html += "<p>" + date.toLocaleDateString() + "</p>";
+                  //   html += "<p>" + value.listtext + "</p><hr>";
 
                     let div = document.createElement("div");
                     div.innerHTML = html;
@@ -110,7 +114,7 @@
                     delbtn.addEventListener('click', function(evt) {
                         deleteTodoLists(value.id);
                     });
-
+/*
                     itemsbtn.addEventListener('click', function(evt) {
 
                         let listeid = value.id
@@ -118,6 +122,7 @@
                         location.href = "listListitems.html";
 
                     });
+                    */
 
                     div.insertBefore(delbtn, div.lastElementChild);
                     
@@ -128,8 +133,9 @@
             }
         }
 
+        listTodoLists();
         // ------- List List items 
-
+/* 
         let container2 = document.getElementById('container2');
 
         async function listListItems() {
@@ -178,7 +184,7 @@ catch(error) {
     console.log(error);
 }
 }
-
+*/
         // ------- Delete Lists
 
         async function deleteTodoLists(todoappId) {
@@ -214,7 +220,7 @@ catch(error) {
             }
         }
 
-        listTodoLists();
+        
       
     </script>
 

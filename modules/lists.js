@@ -57,7 +57,7 @@ router.delete("/todoapp", protect, async function(req, res, next) {
 	}
 });
 
-//------ Listitems Aner ikke om dette funker
+//------ Listitems Skal være riktig
 
 router.get("/listitems", protect, async function(req, res, next) {
 	
