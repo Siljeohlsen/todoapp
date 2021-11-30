@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,15 +13,16 @@
     <!------------- JavaScript --------------->
     <script>
 
-  let listid = localStorage.getItem("listid");    
+let listid = localStorage.getItem("listid");
+
 
 listListItems()
 
 
-async function listListItems() {
+async function listListItems() {            
 
-            
             let token = localStorage.getItem("token");
+            
 
             let url = "/list?listid=" + listid;
 
@@ -37,15 +38,14 @@ async function listListItems() {
                 if (response.status != 200) {
                     throw data.error;
                 }
-              
+                
+
                 container.innerHTML = "";
 
                 for (let value of data) {
                     
-                    
                     let html = "<h2>" + value.heading + "</h2>";
-                    // ny løkke
-
+         
                     let div = document.createElement("div");
                     div.innerHTML = html;
                     container.appendChild(div);
@@ -54,16 +54,19 @@ async function listListItems() {
                     delbtn.innerHTML = "Delete";
 
                     delbtn.addEventListener('click', function(evt) {
-                        deleteTodoLists(value.listid);
+                        deleteTodoLists(value.id);
                     }); 
 
                     div.insertBefore(delbtn, div.lastElementChild);
-                    
-                }
+                  
+                    end();
+                } 
+                
             }
             catch(error) {
                 console.log(error);
             }
+            
         }
         
    

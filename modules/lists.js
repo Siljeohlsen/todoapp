@@ -8,6 +8,7 @@ router.get("/list", protect, async function(req, res, next) {
 	
 	console.log(res.locals.username);
 	console.log(res.locals.userid);
+	console.log(res.locals.listid);
 
 	try{
 		let data = await database.getAllLists();
@@ -22,6 +23,7 @@ router.post("/list",  protect, async function(req, res, next) {
 
 	let updata = req.body;
 	let userid = res.locals.userid;
+	console.log(res.locals.listid);
 
 	try{
 		let data = await database.createLists(updata.heading, userid);
