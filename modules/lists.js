@@ -4,7 +4,7 @@ const database = require ('./database.js');
 const router = express.Router();
 
 // endpoints ----------------------------
-router.get("/todoapp", protect, async function(req, res, next) {
+router.get("/list", protect, async function(req, res, next) {
 	
 	console.log(res.locals.username);
 	console.log(res.locals.userid);
@@ -18,7 +18,7 @@ router.get("/todoapp", protect, async function(req, res, next) {
 	}
 });
 
-router.post("/todoapp",  protect, async function(req, res, next) {
+router.post("/list",  protect, async function(req, res, next) {
 
 	let updata = req.body;
 	let userid = res.locals.userid;
@@ -39,21 +39,25 @@ router.post("/todoapp",  protect, async function(req, res, next) {
 	}
 });
 
-router.delete("/todoapp", protect, async function(req, res, next) {
+router.delete("/list", protect, async function(req, res, next) {
 
 	let updata = req.body;
 	let userid = res.locals.userid;
 
 	try{
-		let data = await database.deleteLists(updata.id, userid);
+		console.log("User id ", userid);
+		console.log(updata);
+		let data = await database.deleteLists(updata.listid, userid);
 		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The list was deleted succesfully"}).end();
 		}
 		else{
+			console.log(data);
 			throw "The list couldn't be deleted";
 		}
 	}
 	catch(err) {
+		console.log(err);
 		next(err);
 	}
 });
@@ -62,10 +66,10 @@ router.delete("/todoapp", protect, async function(req, res, next) {
 
 router.get("/listitems", protect, async function(req, res, next) {
 	
-	let listid = req.query.listid;
+	let listitemsid = req.query.listitemsid;
 
 	try{
-		let data = await database.getListItems(listid);
+		let data = await database.getListItems(listitemsid);
 		res.status(200).json(data.rows).end();
 	}
 	catch(err) {
@@ -76,10 +80,10 @@ router.get("/listitems", protect, async function(req, res, next) {
 router.post("/listitems",  protect, async function(req, res, next) {
 
 	let updata = req.body;
-	let listid = res.locals.listid;
+	let listitemsid = res.locals.listitemsid;
 
 	try{
-		let data = await database.createListItems(updata.text, listid);
+		let data = await database.createListItems(updata.text, listitemsid);
 
 		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The lists were created succesfully"}).end();
@@ -98,7 +102,7 @@ router.post("/listitems",  protect, async function(req, res, next) {
 router.delete("/listitems", protect, async function(req, res, next) {
 
 	let updata = req.body;
-	let listid = res.locals.listid;
+	let listitemsid = res.locals.listitemsid;
 
 	try{
 		let data = await database.deleteLists(updata.id, userid);

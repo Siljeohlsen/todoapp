@@ -13,7 +13,7 @@
     <!------------- JavaScript --------------->
     <script>
 
-        /*
+        
 
 listListItems()
 
@@ -23,9 +23,9 @@ async function listListItems() {
             
 
             let token = localStorage.getItem("token");
-            let listeid = localStorage.getItem("listid");
+            let listitemsid = localStorage.getItem("listid");
 
-            let url = "/listitems?listid=" + listeid;
+            let url = "/listitems?listid=" + listitemsid;
 
             let cfg = {
                 method: "GET",
@@ -73,7 +73,7 @@ async function listListItems() {
                 console.log(error);
             }
         }
-        */
+        
    
     </script>
 

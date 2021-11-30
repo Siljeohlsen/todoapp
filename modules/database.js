@@ -11,29 +11,29 @@ let databaseMethods = {}; //create empty object
 
 // ----------------------------
 databaseMethods.getAllLists = function() {
-    let sql = "SELECT * FROM todoapp";
+    let sql = "SELECT * FROM list";
     return pool.query(sql); //return the promise
 }
 
 // Create lists ----------------------------
 databaseMethods.createLists = function(heading, userid) {
-    let sql = "INSERT INTO todoapp (heading, userid) VALUES($1, $2) returning *";
+    let sql = "INSERT INTO list (heading, userid) VALUES($1, $2) returning *";
     let values = [heading, userid];
     return pool.query(sql, values); //return the promise
 }
 
 // Delete lists ----------------------------
-databaseMethods.deleteLists = function(id, userid) {
-    let sql = "DELETE FROM todoapp WHERE id = $1 AND userid = $2 RETURNING*";
-    let values = [id, userid];
+databaseMethods.deleteLists = function(listid, userid) {
+    let sql = "DELETE FROM list WHERE listid = $1 AND userid = $2 RETURNING *";
+    let values = [listid, userid];
     return pool.query(sql, values); //return the promise
 }
 
 // ----- List Items ----- DETTE ER RIKTIG
 
-databaseMethods.getListItems = function(listid){
-    let sql = "SELECT * FROM listitems WHERE listid = $1"; 
-    let values = [listid];
+databaseMethods.getListItems = function(listitemsid){
+    let sql = "SELECT * FROM listitems WHERE listitemsid = $1"; 
+    let values = [listitemsid];
     return pool.query(sql); //return the promise
 }
 
@@ -46,7 +46,7 @@ databaseMethods.createListItems = function(text){
 // Users -----------------------
 
 databaseMethods.getAllUsers = function(){
-    let sql = "SELECT id, username FROM users";
+    let sql = "SELECT listid, username FROM users";
     return pool.query(sql); //return the promise
 }
 
@@ -59,15 +59,15 @@ databaseMethods.getUser = function(username) {
 
 // Create user -------------------------------
 databaseMethods.createUser = function(username, password, salt){
-    let sql = "INSERT INTO users (id, username, password, salt) VALUES(DEFAULT, $1, $2, $3) returning *";
+    let sql = "INSERT INTO users (listid, username, password, salt) VALUES(DEFAULT, $1, $2, $3) returning *";
     let values = [username, password, salt];
     return pool.query(sql, values); //return the promise
 }
 
 // Delete user -------------------------------
-databaseMethods.deleteUser = function(id) {
-    let sql = "DELETE FROM users WHERE id = $1 RETURNING *";
-    let values = [id];
+databaseMethods.deleteUser = function(listid) {
+    let sql = "DELETE FROM users WHERE listid = $1 RETURNING *";
+    let values = [listid];
     return pool.query(sql, values); //return the promise 
 }
 
