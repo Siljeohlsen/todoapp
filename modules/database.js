@@ -15,14 +15,14 @@ databaseMethods.getAllLists = function() {
     return pool.query(sql); //return the promise
 }
 
-// ----------------------------
+// Create lists ----------------------------
 databaseMethods.createLists = function(heading, userid) {
     let sql = "INSERT INTO todoapp (id, date, heading, userid) VALUES(DEFAULT, DEFAULT, $1, $2, $3) returning*";
     let values = [heading, userid];
     return pool.query(sql, values); //return the promise
 }
 
-// ----------------------------
+// Delete lists ----------------------------
 databaseMethods.deleteLists = function(id, userid) {
     let sql = "DELETE FROM todoapp WHERE id = $1 AND userid = $2 RETURNING*";
     let values = [id, userid];
@@ -50,21 +50,21 @@ databaseMethods.getAllUsers = function(){
     return pool.query(sql); //return the promise
 }
 
-//-------------------------------
+// Get user -------------------------------
 databaseMethods.getUser = function(username) {
     let sql = "SELECT * FROM users WHERE username = $1";
     let values = [username];
     return pool.query(sql,values); //return the promise
 }
 
-//-------------------------------
+// Create user -------------------------------
 databaseMethods.createUser = function(username, password, salt){
     let sql = "INSERT INTO users (id, username, password, salt) VALUES(DEFAULT, $1, $2, $3) returning *";
     let values = [username, password, salt];
     return pool.query(sql, values); //return the promise
 }
 
-//-------------------------------
+// Delete user -------------------------------
 databaseMethods.deleteUser = function(id) {
     let sql = "DELETE FROM users WHERE id = $1 RETURNING *";
     let values = [id];
