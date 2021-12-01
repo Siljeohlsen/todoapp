@@ -1,0 +1,106 @@
+
+ div {
+    height:  150px;
+    width: 150px;
+    float: left;
+    margin-bottom: 50px;
+    }
+
+body {
+    background-color: rgb(255, 188, 188, 0.4);
+    padding: 5px;
+    border-style: solid 5px rgb(77, 48, 48);
+    text-align: center;
+}
+
+h1 {
+    font-size: xx-large;
+    color: rgb(70, 40, 40);  
+}
+
+h3 {
+    color: rgb(70, 40, 40);
+}
+
+h4 {
+    color: rgb(70, 40, 40);
+}
+
+#inpUsername {
+    border-radius: 7px;
+    background-color: lavender;
+    border-color:rgb(255, 188, 188, 0.4);
+    margin-bottom: 5px;
+
+}
+
+#inpPassword {
+    border-radius: 7px;
+    background-color: lavender;
+    border-color: rgb(255, 188, 188, 0.4);
+    margin-bottom: 5px;
+    
+}
+
+#inpHeading {
+    border-radius: 7px;
+    background-color: lavender;
+    border-color: rgb(255, 188, 188, 0.4);
+    margin-bottom: 5px;
+}
+
+#inpListtext {
+    border-radius: 7px;
+    background-color: lavender;
+    border-color: rgb(255, 188, 188, 0.4);
+    margin-bottom: 5px;
+}
+
+button {
+    color: rgb(70, 40, 40);
+    background-color: lavender;
+    border-radius: 7px;
+    border-color: rgb(255, 188, 188, 0.4);
+}
+
+button:hover {
+    background-color: rgb(219, 163, 163, 0.7);
+    border-radius: 7px;
+    border-color:  rgb(255, 188, 188, 0.4);
+} 
+
+#btnCreateuser {
+    color: rgb(70, 40, 40);
+    background-color: lavender;
+    border-radius: 7px;
+    border-color: rgb(255, 188, 188, 0.4);
+    width: 150px;
+    height: 60px;
+    font-size: medium;
+}
+
+#btnCreateuser:hover {
+    background-color: rgb(219, 163, 163, 0.7);
+    border-radius: 7px;
+    border-color: rgb(255, 188, 188, 0.4);
+}
+
+#btnHome {
+    color: rgb(70, 40, 40);
+    background-color: lavender;
+    border-radius: 7px;
+    border-color: rgb(255, 188, 188, 0.4);
+    float: left;
+}
+
+#btnHome:hover {
+    background-color: rgb(219, 163, 163, 0.7);
+    border-radius: 7px;
+    border-color:  rgb(255, 188, 188, 0.4);
+}
+
+#container {
+    width: 100%;
+    aspect-ratio: 100/29;
+    margin-left: 50px;
+}
