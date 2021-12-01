@@ -9,6 +9,7 @@
 
     <!----------- HTML-elements -------------->
     <link rel="stylesheet" href="css.css">
+    <button id="btnHome">Back to Home</button> <br>
     <h1 id="heading"></h1>
     <input id ="inptext" type="text" /><br>
     <input id ="inpdate" type="date" /><br>
@@ -29,6 +30,13 @@
         let token = localStorage.getItem("token");
 
         txtheading.innerHTML = listheading;
+
+        let btnHome = document.getElementById('btnHome');
+
+        // Back to home button  -----------------------
+        btnHome.addEventListener('click', async function(evt){
+        window.location.href = "index.html";
+        });
 
         btnCreate.addEventListener('click', async function(evt) {
 

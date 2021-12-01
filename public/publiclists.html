@@ -9,11 +9,20 @@
 
     <!----------- HTML-elements -------------->
     <link rel="stylesheet" href="css.css">
+
+    <button id="btnHome">Back to Home</button> <br>
     
     <div id="container"></div>
         
     <!------------- JavaScript --------------->
     <script>
+
+    let btnHome = document.getElementById('btnHome');
+
+    // Back to home button  -----------------------
+    btnHome.addEventListener('click', async function(evt){
+    window.location.href = "index.html";
+    });
 
 let container = document.getElementById('container');
 
