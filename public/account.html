@@ -36,10 +36,15 @@
     // delete a user -----------------------
     btnDeleteuser.addEventListener('click', async function(evt){
 
+        alert("Are you sure you want to delete your account?");
+        if(confirm){
+               
     let url = "/users";
 
     let token = localStorage.getItem("token");
 
+        
+        
         let updata = {
             id: userId
         }
@@ -64,6 +69,9 @@
         }
         catch(error) {
             console.log(error);
+        }
+    } else {
+            console.log("Dette funket ikke dummen");
         }
     }); 
 

@@ -64,10 +64,10 @@ databaseMethods.createUser = function(username, password, salt){
     return pool.query(sql, values); //return the promise
 }
 
-// Delete user -------------------------------
-databaseMethods.deleteUser = function(listid) {
-    let sql = "DELETE FROM users WHERE listid = $1 RETURNING *";
-    let values = [listid];
+// Delete user ------------------------------- skal det være userID??? 
+databaseMethods.deleteUser = function(id) {
+    let sql = "DELETE FROM users WHERE id = $1 RETURNING *";
+    let values = [id];
     return pool.query(sql, values); //return the promise 
 }
 

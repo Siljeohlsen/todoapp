@@ -94,18 +94,12 @@ router.post("/users", async function(req, res, next){
 
 // delete a user -----------------------
 router.delete("/users", async function(req, res, next){
-    // res.status(200).send("Hello from DELETE - /users").end();
-
-    let credString = req.headers.authorization;
-    let cred = authUtils.decodeCred(credString);
-
-    if (cred.username == "" || cred.password == ""){
-        res.status(401).json({error: "No username or password"}).end();
-        return;
-    }
+    
+    let url 
+    let updata = req.body; viktig
 
     try {
-        let data = await database.deleteUser(cred.username, hash.value, hash.salt);
+       let data = await database.deleteUser(id); // riktig parametere = Users/ id,passord, salt
 
         if (data.rows.length > 0) {
             res.status(200).json({msg: "The user was deleted succesfully"}).end();
