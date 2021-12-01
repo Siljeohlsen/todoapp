@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>Create new user</title>
+</head>
+<body>
+
+    <!----------- HTML-elements -------------->
+    <link rel="stylesheet" href="css.css">
+    
+    <button id="btnHome">Back to Home</button> <br>
+    <h1> Create new user </h1>
+    <input id="inpUsername" type="text" placeholder="User name"/>
+    <input id="inpPassword" type="password" placeholder="Password"/> <br><br>
+  
+    <button id="btnCreate"> Create user </button><br>
+    <h3 id="txtResult"></h3>
+
+    
+    <!------------- JavaScript --------------->
+    <script>
+
+       let inpUsername = document.getElementById('inpUsername');
+        let inpPassword = document.getElementById('inpPassword');
+        let btnHome = document.getElementById('btnHome');
+        let btnCreate = document.getElementById('btnCreate');
+        let txtResult = document.getElementById('txtResult');
+
+    // Back to home button  -----------------------
+    btnHome.addEventListener('click', async function(evt){
+    window.location.href = "index.html";
+    
+    });
+
+
+
+        btnCreate.addEventListener('click', async function(evt) {
+            
+            let url = "/users";
+            let credString = createCredentialString(inpUsername.value, inpPassword.value);
+            
+
+            let cfg = {
+                method : "POST",
+                headers : {"authorization" : credString},
+            }
+
+            try {
+                let response = await fetch(url,cfg);
+                let data = await response.json();
+            
+                if (response.status != 200){
+                    throw data.error;
+                }
+
+                txtResult.innerHTML = data.msg;
+            }
+            catch(error) {
+                console.log(error);
+                txtResult.innerHTML = "Something went wrong - check the console window";
+            }
+        });
+
+
+//-------------------------------------------
+function createCredentialString(username, password) {
+    let combinedStr = username + ":" + password;
+    let b64Str = btoa(combinedStr);
+    return "basic " + b64Str;
+}
+    
+    </script>
+
+</body>
+
+</html>

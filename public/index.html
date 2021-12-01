@@ -3,24 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <title>TestClient</title>
+    <title>Index</title>
 </head>
 <body>
 
     <!----------- HTML-elements -------------->
+    <link rel="stylesheet" href="css.css"> 
+    
     <h1>ToDo App</h1>
-    <a href="todoapplist.html">List all Lists</a>
-    <a href="todoappcreatelist.html">Create new list</a>
+    
+    
+    <button id="btnCreateNewList">Create new list</button>  
+    <button id="btnPublicLists">View public lists</button>  <br>
+    
+    <h1> Login </h1>
+
+    <input id="inpUsername" type="text"/>  <br>
+    <input id="inpPassword" type="password" cols="20" rows="10"/> <br>
+    
+
+    <button id="btnLogin"> Login </button>  
+    <button id="btnAccount"> Account settings </button> <br>
+    <h3 id="txtResult"></h3>
+    <h4 id="txtResult">New user?</h4>
+    <button id="btnCreateuser">Create your Todo App account</button>
         
     <!------------- JavaScript --------------->
     <script>
+           
+
+let inpUsername = document.getElementById('inpUsername');
+let inpPassword = document.getElementById('inpPassword');
+let btnCreateNewList = document.getElementById('btnCreateNewList');
+let btnPublicLists = document.getElementById('btnPublicLists');
+let btnLogin = document.getElementById('btnLogin');
+let btnAccount = document.getElementById('btnAccount');
+let btnCreateuser = document.getElementById('btnCreateuser');
+
+btnCreateNewList.addEventListener('click', async function(evt){
+    window.location.href = "createlist.html";
+    
+});
+
+btnPublicLists.addEventListener('click', async function(evt){
+    window.location.href = "publiclists.html";
+    
+});
+
+
+
+
+
+let txtResult = document.getElementById('txtResult');
+
+
+btnLogin.addEventListener('click', async function(evt) {
+    
+    let url = "/users/login";
+    let credString = createCredentialString(inpUsername.value, inpPassword.value);
+    
+
+    let cfg = {
+        method : "POST",
+        headers : {"authorization" : credString},
+    }
+
+    try {
+        let response = await fetch(url,cfg);
+        let data = await response.json();
+    
+        if (response.status != 200){
+            throw data.error;
+        }
+
+        txtResult.innerHTML = data.msg;
+        localStorage.setItem("token", data.token);
+    }
+    catch(error) {
+        console.log(error);
+        txtResult.innerHTML = "Something went wrong - check the console window";
+    }
+});
+
+btnAccount.addEventListener('click', async function(evt){
+    window.location.href = "account.html";
+    
+});
+
+btnCreateuser.addEventListener('click', function(evt) {
+
+window.location.href = "createuser.html"; 
+
+});
+
+
+
+//-------------------------------------------
+function createCredentialString(username, password) {
+let combinedStr = username + ":" + password;
+let b64Str = btoa(combinedStr);
+return "basic " + b64Str;
+}
+
+
+
+
 
     </script>
-
-    <!---------------- CSS ------------------->
-    <style>        
-
-    </style>
 
 </body>
 

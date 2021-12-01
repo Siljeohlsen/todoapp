@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>TestClient</title>
+</head>
+<body>
+
+    <!----------- HTML-elements -------------->
+    <h1> Login </h1>
+
+    <input id="inpHeading" type="text"/>  <br>
+    <input id="inpBlogtext" cols="20" rows="10"/> <br>
+
+    <button id="btnLogin"> Login </button><br>
+    <h3 id="txtResult">Result...</h3>
+    <h4 id="txtResult">New user?</h4>
+    <button id="btnCreateuser">Create your Todo App account</button>
+    
+
+    
+    <!------------- JavaScript --------------->
+    <script>
+
+        let inpUsername = document.getElementById('inpUsername');
+        let inpPassword = document.getElementById('inpPassword');
+        let btnLogin = document.getElementById('btnLogin');
+        let btnCreateuser = document.getElementById('btnCreateuser');
+        let txtResult = document.getElementById('txtResult');
+
+
+        btnLogin.addEventListener('click', async function(evt) {
+            
+            let url = "/users/login";
+            let credString = createCredentialString(inpUsername.value, inpPassword.value);
+            
+
+            let cfg = {
+                method : "POST",
+                headers : {"authorization" : credString},
+            }
+
+            try {
+                let response = await fetch(url,cfg);
+                let data = await response.json();
+            
+                if (response.status != 200){
+                    throw data.error;
+                }
+
+                txtResult.innerHTML = data.msg;
+                localStorage.setItem("token", data.token);
+            }
+            catch(error) {
+                console.log(error);
+                txtResult.innerHTML = "Something went wrong - check the console window";
+            }
+        });
+
+
+//-------------------------------------------
+function createCredentialString(username, password) {
+    let combinedStr = username + ":" + password;
+    let b64Str = btoa(combinedStr);
+    return "basic " + b64Str;
+}
+
+btnCreateuser.addEventListener('click', function(evt) {
+
+window.location.href = "createuser.html"; 
+
+});
+
+
+
+    
+    </script>
+
+    <!---------------- CSS ------------------->
+    <style>        
+        
+        body {
+            background-color: rgb(255, 188, 188, 0.4);
+            padding: 5px;
+            border-style: solid 5px rgb(77, 48, 48);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: xx-large;
+            color: rgb(70, 40, 40);  
+        }
+
+        h3 {
+            color: rgb(70, 40, 40);
+        }
+
+        h4 {
+            color: rgb(70, 40, 40);
+        }
+
+        #inpHeading {
+            border-radius: 7px;
+            background-color: lavender;
+            border: rgb(255, 188, 188, 0.4);
+        }
+
+        #inpBlogtext {
+            border-radius: 7px;
+            background-color: lavender;
+            border: rgb(255, 188, 188, 0.4);
+        }
+
+        #btnLogin {
+            color: rgb(70, 40, 40);
+            background-color: lavender;
+            border-radius: 7px;
+            border: rgb(255, 188, 188, 0.4);
+        }
+
+        #btnLogin:hover {
+            background-color: rgb(219, 163, 163, 0.7);
+            border-radius: 7px;
+            border:  rgb(255, 188, 188, 0.4);
+        }   
+
+        #btnCreateuser {
+            color: rgb(70, 40, 40);
+            background-color: lavender;
+            border-radius: 7px;
+            border: rgb(255, 188, 188, 0.4);
+            width: 150px;
+            height: 60px;
+            font-size: medium;
+        }
+
+        #btnCreateuser:hover {
+            background-color: rgb(219, 163, 163, 0.7);
+            border-radius: 7px;
+            border: rgb(255, 188, 188, 0.4);
+        }
+
+    </style>
+
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,24 +8,100 @@
 <body>
 
     <!----------- HTML-elements -------------->
+    <link rel="stylesheet" href="css.css">
+
+    <button id="btnHome">Back to Home</button> <br>
+    
     <div id="container"></div>
         
     <!------------- JavaScript --------------->
     <script>
 
+    let btnHome = document.getElementById('btnHome');
+
+    // Back to home button  -----------------------
+    btnHome.addEventListener('click', async function(evt){
+    window.location.href = "index.html";
+    });
+
+    //endring
+
+let container = document.getElementById('container');
+
+async function listTodoLists() {
+
+    let url = "/sharelist";
+
+    let token = localStorage.getItem("token");
+
+    let cfg = {
+        method: "GET",
+        headers: {"authorization": token}
+    };
+
+    try {
+        let response = await fetch(url, cfg);
+        let data = await response.json();
+
+        if (response.status != 200) {
+            throw data.error;
+        }
+        
+
+        container.innerHTML = "";
+
+        for (let value of data) {
+              
+            let html = "<h2>" + value.heading + "</h2>";
+
+            let div = document.createElement("div");
+            div.innerHTML = html;
+            container.appendChild(div);
+
+            let itemsbtn = document.createElement("button");
+            itemsbtn.innerHTML = "Go to list";
+
+            itemsbtn.addEventListener('click', function(evt) {
+
+                localStorage.setItem("listheading", value.heading);
+                localStorage.setItem("listid", value.listid);
+                location.href = "listitems.html";
+
+            });
+            
+            div.insertBefore(itemsbtn, div.lastElementChild);
+            
+        }
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
+listTodoLists();
+        /* 
+
         let container = document.getElementById('container');
 
         async function listTodoLists() {
 
-            let url = "/todoapp";
+            let url = "/list";
+
+            let token = localStorage.getItem("token");
+
+            let cfg = {
+                method: "GET",
+                headers: {"authorization": token}
+            };
 
             try {
-                let response = await fetch(url);
+                let response = await fetch(url, cfg);
                 let data = await response.json();
 
                 if (response.status != 200) {
                     throw data.error;
                 }
+                // trenger jeg en ny try??
 
                 container.innerHTML = "";
 
@@ -35,6 +111,8 @@
 
                     
                     let html = "<h2>" + value.heading + "</h2>";
+                    // ny løkke
+
                     html += "<p>" + date.toLocaleDateString() + "</p>";
                     html += "<p>" + value.listtext + "</p><hr>";
 
@@ -60,7 +138,8 @@
 
         async function deleteTodoLists(todoappId) {
 
-            let url = "/todoapp";
+            let url = "/list";
+            let token = localStorage.getItem("token");
 
             let updata = {
                 id: todoappId
@@ -68,7 +147,10 @@
 
             let cfg = {
                 method: "DELETE",
-                headers: {"content-type":"application/json"},
+                headers: {
+                    "content-type":"application/json",
+                    "authorization": token
+                },
                 body: JSON.stringify(updata)
             }
 
@@ -88,13 +170,9 @@
         }
 
         listTodoLists();
+        */
    
     </script>
-
-    <!---------------- CSS ------------------->
-    <style>        
-
-    </style>
 
 </body>
 
