@@ -14,6 +14,61 @@
         
     <!------------- JavaScript --------------->
     <script>
+
+let container = document.getElementById('container');
+
+async function listTodoLists() {
+
+    let url = "/sharelist";
+
+    let token = localStorage.getItem("token");
+
+    let cfg = {
+        method: "GET",
+        headers: {"authorization": token}
+    };
+
+    try {
+        let response = await fetch(url, cfg);
+        let data = await response.json();
+
+        if (response.status != 200) {
+            throw data.error;
+        }
+        
+
+        container.innerHTML = "";
+
+        for (let value of data) {
+              
+            let html = "<h2>" + value.heading + "</h2>";
+
+            let div = document.createElement("div");
+            div.innerHTML = html;
+            container.appendChild(div);
+
+            let itemsbtn = document.createElement("button");
+            itemsbtn.innerHTML = "Go to list";
+
+            itemsbtn.addEventListener('click', function(evt) {
+
+                localStorage.setItem("listheading", value.heading);
+                localStorage.setItem("listid", value.listid);
+                location.href = "listitems.html";
+
+            });
+            
+            div.insertBefore(itemsbtn, div.lastElementChild);
+            div.insertBefore(delbtn, div.lastElementChild);
+            
+        }
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
+listTodoLists();
         /* 
 
         let container = document.getElementById('container');
