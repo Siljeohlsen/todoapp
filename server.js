@@ -31,6 +31,7 @@ server.use(users);
 
 //error handling
 server.use(function (err, req, res, next) {
+	console.log(err);
 	res.status(500).json({
 		error: 'Something went wrong on the server!',
 		descr: err

@@ -135,8 +135,8 @@
 
                     itemsbtn.addEventListener('click', function(evt) {
 
-                        let listid = value.listid
-                        localStorage.setItem("listid", listid);
+                        localStorage.setItem("listheading", value.heading);
+                        localStorage.setItem("listid", value.listid);
                         location.href = "listitems.html";
 
                     });

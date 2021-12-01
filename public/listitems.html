@@ -9,13 +9,20 @@
 
     <!----------- HTML-elements -------------->
     <link rel="stylesheet" href="css.css">
+    <h1 id="heading"></h1>
     
     <div id="container"></div>
         
     <!------------- JavaScript --------------->
     <script>
 
+        let txtheading = document.getElementById('heading');
+
 let listid = localStorage.getItem("listid");
+
+let listheading = localStorage.getItem("listheading");
+
+txtheading.innerHTML = listheading;
 
 
 listListItems()
@@ -26,7 +33,7 @@ async function listListItems() {
             let token = localStorage.getItem("token");
             
 
-            let url = "/list?listid=" + listid;
+            let url = "/listitems?listitemsid=" + listid;
 
             let cfg = {
                 method: "GET",
@@ -37,6 +44,8 @@ async function listListItems() {
                 let response = await fetch(url, cfg);
                 let data = await response.json();
 
+                console.log(data);
+
                 if (response.status != 200) {
                     throw data.error;
                 }
@@ -46,22 +55,25 @@ async function listListItems() {
 
                 for (let value of data) {
                     
-                    let html = "<h2>" + value.heading + "</h2>";
-         
+                   
                     let div = document.createElement("div");
-                    div.innerHTML = html;
                     container.appendChild(div);
+
+                    let html = "<p>"+value.date + "</p>";
+                    html += "<p>"+value.text + "</p>";
+                    div.innerHTML = html;
+
 
                     let delbtn = document.createElement("button");
                     delbtn.innerHTML = "Delete";
 
                     delbtn.addEventListener('click', function(evt) {
-                        deleteTodoLists(value.id);
+                        
                     }); 
 
-                    div.insertBefore(delbtn, div.lastElementChild);
+                   div.appendChild(delbtn);
                   
-                    end();
+                    //end();
                 } 
                 
             }

@@ -71,7 +71,7 @@ router.get("/listitems", protect, async function(req, res, next) {
 	let listitemsid = req.query.listitemsid;
 
 	try{
-		let data = await database.getListItems(listitemsid);
+		let data = await database.getListItems(listitemsid)
 		res.status(200).json(data.rows).end();
 	}
 	catch(err) {
@@ -86,6 +86,8 @@ router.post("/listitems",  protect, async function(req, res, next) {
 
 	try{
 		let data = await database.createListItems(updata.text, listitemsid);
+
+		
 
 		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The lists were created succesfully"}).end();

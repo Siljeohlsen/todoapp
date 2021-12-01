@@ -34,7 +34,7 @@ databaseMethods.deleteLists = function(listid, userid) {
 databaseMethods.getListItems = function(listitemsid){
     let sql = "SELECT * FROM listitems WHERE listitemsid = $1"; 
     let values = [listitemsid];
-    return pool.query(sql); //return the promise
+    return pool.query(sql, values); //return the promise
 }
 
 databaseMethods.createListItems = function(text){
