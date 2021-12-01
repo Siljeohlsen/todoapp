@@ -9,7 +9,8 @@
 
     <!----------- HTML-elements -------------->
     <link rel="stylesheet" href="css.css">
-    <button id="btnHome">Back to Home</button> <br>
+    <button id="btnHome">Back to Home</button> 
+    <button id="btnBack">Back to Create list</button> <br>
     <h1 id="heading"></h1>
     <input id ="inptext" type="text" /><br>
     <input id ="inpdate" type="date" /><br>
@@ -28,14 +29,21 @@
         let inptext = document.getElementById('inptext');
         let txtResult = document.getElementById('txtResult');
         let token = localStorage.getItem("token");
+        let btnHome = document.getElementById('btnHome');
+        let btnBack = document.getElementById('btnBack');
 
         txtheading.innerHTML = listheading;
 
-        let btnHome = document.getElementById('btnHome');
+       
 
         // Back to home button  -----------------------
         btnHome.addEventListener('click', async function(evt){
         window.location.href = "index.html";
+        });
+
+          // Back to home button  -----------------------
+          btnBack.addEventListener('click', async function(evt){
+        window.location.href = "createlist.html";
         });
 
         btnCreate.addEventListener('click', async function(evt) {
