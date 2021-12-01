@@ -92,14 +92,15 @@ router.post("/users", async function(req, res, next){
   
 });
 
+
+
 // delete a user -----------------------
 router.delete("/users", async function(req, res, next){
     
-    let url 
-    let updata = req.body; viktig
+    let updata = req.body; // viktig
 
     try {
-       let data = await database.deleteUser(id); // riktig parametere = Users/ id,passord, salt
+       let data = await database.deleteUser(updata.id); // riktig parametere = Users/ id,passord, salt
 
         if (data.rows.length > 0) {
             res.status(200).json({msg: "The user was deleted succesfully"}).end();
