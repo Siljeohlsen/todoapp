@@ -10,27 +10,74 @@
     <!----------- HTML-elements -------------->
     <link rel="stylesheet" href="css.css">
     <h1 id="heading"></h1>
-    
+    <input id ="inptext" type="text" /><br>
+    <input id ="inpdate" type="date" /><br>
+    <button id="btnCreate">Create list item</button><br>
+ 
     <div id="container"></div>
+    <h3 id="txtResult"></h3>
         
     <!------------- JavaScript --------------->
     <script>
 
         let txtheading = document.getElementById('heading');
+        let listid = localStorage.getItem("listid");
+        let listheading = localStorage.getItem("listheading");
+        let btnCreate = document.getElementById('btnCreate');
+        let inptext = document.getElementById('inptext');
+        let txtResult = document.getElementById('txtResult');
+        let token = localStorage.getItem("token");
 
-let listid = localStorage.getItem("listid");
+        txtheading.innerHTML = listheading;
 
-let listheading = localStorage.getItem("listheading");
+        btnCreate.addEventListener('click', async function(evt) {
 
-txtheading.innerHTML = listheading;
+        let url = "/listitems";
+
+        let updata = {
+            text: inptext.value,
+            date: inpdate.value,
+            listID: listid
+            
+        }
+
+        let cfg = {
+            method: "POST",
+            headers: {
+                "content-type":"application/json",
+                "authorization":token
+            },
+            body: JSON.stringify(updata)
+        }
+
+        try {
+            let response = await fetch(url, cfg);
+            let data = await response.json();
 
 
-listListItems()
+
+            if (response.status != 200) {
+                throw data.error;
+
+            }
+
+            txtResult.innerHTML = data.msg; //beskjed om det funket eller ikke
+            
+        }
+        catch(error) {
+            console.log(error);
+            txtResult.innerHTML = "Something went wrong - check the console window";
+        }
+        // window.location.reload();
+        listListItems()
+        });
 
 
-async function listListItems() {            
 
-            let token = localStorage.getItem("token");
+
+listListItems();
+
+async function listListItems() {           
             
 
             let url = "/listitems?listitemsid=" + listid;
@@ -55,6 +102,7 @@ async function listListItems() {
 
                 for (let value of data) {
                     
+                    console.log(value);
                    
                     let div = document.createElement("div");
                     container.appendChild(div);
@@ -73,7 +121,7 @@ async function listListItems() {
 
                    div.appendChild(delbtn);
                   
-                    //end();
+                    
                 } 
                 
             }

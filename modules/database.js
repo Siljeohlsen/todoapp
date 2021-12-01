@@ -1,5 +1,5 @@
 const pg = require('pg');
-const tdaURI = "postgres://vdoxbxjaqxnsno:999f2f2993e7b8b9a34de8602571741c122cd539e136ad5d981b6a773b86dd5a@ec2-52-214-178-113.eu-west-1.compute.amazonaws.com:5432/ddghcl0kmg4ejf";
+const tdaURI = "postgres://flalmtnwfbbbbb:de7cc447a76ac3df6befa56cfb98f558c13473b7c352234cdc4bb42212fe8a5e@ec2-54-195-246-55.eu-west-1.compute.amazonaws.com:5432/d7bccibc5r5hti";
 const connstring = process.env.DATABASE_URL || tdaURI;
 const pool = new pg.Pool({
 	connectionString: connstring,
@@ -15,10 +15,15 @@ databaseMethods.getAllLists = function() {
     return pool.query(sql); //return the promise
 }
 
+databaseMethods.getAllPublicLists = function() {
+    let sql = "SELECT * FROM list WHERE public = 1";
+    return pool.query(sql); //return the promise
+}
+
 // Create lists ----------------------------
-databaseMethods.createLists = function(heading, userid) {
-    let sql = "INSERT INTO list (heading, userid) VALUES($1, $2) returning *";
-    let values = [heading, userid];
+databaseMethods.createLists = function(heading, userid , public) {
+    let sql = "INSERT INTO list (heading, userid, public) VALUES($1, $2, $3) returning *";
+    let values = [heading, userid, public];
     return pool.query(sql, values); //return the promise
 }
 
@@ -31,15 +36,15 @@ databaseMethods.deleteLists = function(listid, userid) {
 
 // ----- List Items ----- DETTE ER RIKTIG
 
-databaseMethods.getListItems = function(listitemsid){
-    let sql = "SELECT * FROM listitems WHERE listitemsid = $1"; 
-    let values = [listitemsid];
+databaseMethods.getListItems = function(listid){
+    let sql = "SELECT * FROM listitems WHERE listid = $1"; 
+    let values = [listid];
     return pool.query(sql, values); //return the promise
 }
 
-databaseMethods.createListItems = function(text){
-    let sql = "INSERT INTO listitems (text) VALUES(DEFAULT, $1) returning*";
-    values = [text];
+databaseMethods.createListItems = function(text, date, listid){
+    let sql = "INSERT INTO listitems (listitemsid, text, date, listid) VALUES(DEFAULT, $1, $2, $3) returning*";
+    values = [text, date, listid];
     return pool.query(sql, values);
 }
 
@@ -59,7 +64,7 @@ databaseMethods.getUser = function(username) {
 
 // Create user -------------------------------
 databaseMethods.createUser = function(username, password, salt){
-    let sql = "INSERT INTO users (listid, username, password, salt) VALUES(DEFAULT, $1, $2, $3) returning *";
+    let sql = "INSERT INTO users (id, username, password, salt) VALUES(DEFAULT, $1, $2, $3) returning *";
     let values = [username, password, salt];
     return pool.query(sql, values); //return the promise
 }

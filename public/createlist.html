@@ -14,6 +14,7 @@
     <h1>Create new list</h1>
 
     <input id ="inpHeading" type="text" /><br>
+    <span>Public: </span><input id="chkPublic" type="checkbox" value="1">
     <button id="btnCreate">Create list</button><br>
     <h3 id="txtResult"></h3>
     
@@ -33,6 +34,7 @@
         let inpHeading = document.getElementById('inpHeading');
         let btnCreate = document.getElementById('btnCreate');
         let txtResult = document.getElementById('txtResult');
+        let chkPublic = document.getElementById('chkPublic');
         
 
 
@@ -42,10 +44,18 @@
     btnCreate.addEventListener('click', async function(evt) {
 
         let url = "/list";
+        let publicvalue;
+
+        if (chkPublic.checked == true) {
+            publicvalue = 1;
+        }
+        else {
+            publicvalue = 0;
+        }
 
         let updata = {
             heading: inpHeading.value,
-            
+            public: publicvalue            
         }
 
         let token = localStorage.getItem("token");

@@ -19,14 +19,30 @@ router.get("/list", protect, async function(req, res, next) {
 	}
 });
 
+router.get("/sharelist", protect, async function(req, res, next) {
+	
+	console.log(res.locals.username);
+	console.log(res.locals.userid);
+	console.log(res.locals.listid);
+
+	try{
+		let data = await database.getAllPublicLists();
+		res.status(200).json(data.rows).end();
+	}
+	catch(err) {
+		next(err);
+	}
+});
+
 router.post("/list",  protect, async function(req, res, next) {
 
 	let updata = req.body;
 	let userid = res.locals.userid;
+	let public = updata.public;
 	console.log(res.locals.listid);
 
 	try{
-		let data = await database.createLists(updata.heading, userid);
+		let data = await database.createLists(updata.heading, userid , public);
 
 		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The lists were created succesfully"}).end();
@@ -82,12 +98,10 @@ router.get("/listitems", protect, async function(req, res, next) {
 router.post("/listitems",  protect, async function(req, res, next) {
 
 	let updata = req.body;
-	let listitemsid = res.locals.listitemsid;
+	let listitemsid = updata.listID;
 
 	try{
-		let data = await database.createListItems(updata.text, listitemsid);
-
-		
+		let data = await database.createListItems(updata.text, updata.date, listitemsid);
 
 		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The lists were created succesfully"}).end();
