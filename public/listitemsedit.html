@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ListItems</title>
+  </head>
+  <body>
+    <!----------- HTML-elements -------------->
+    <button id="btnHome">Back to Home</button>
+    <button id="btnBack">Back to List items</button> <br />
+    <h1>Edit item</h1>
+    <input id="inpItemname" type="text">
+    <input id="inpDate" type="date" /><br />
+    <button id="btnCommitChange">Commit changes</button><br />
+    <script>
+
+      let btnCommitChange = document.getElementById("btnCommitChange");
+      let btnHome = document.getElementById("btnHome");
+      let btnBack = document.getElementById("btnBack");
+
+       // Back button  -----------------------
+       btnBack.addEventListener("click", async function (evt) {
+        window.location.href = "listitems.html";
+      });
+
+        // Back to home button  -----------------------
+        btnHome.addEventListener("click", async function (evt) {
+        window.location.href = "index.html";
+      });
+
+      let listitemdataJson = localStorage.getItem("listitemdata");
+      let listitemdata = JSON.parse(listitemdataJson);
+
+      console.log(listitemdata)
+
+      let txtItemname = document.getElementById("inpItemname");
+      txtItemname.value = listitemdata.text;
+
+      let itemDate = document.getElementById("inpDate");
+      itemDate.value = listitemdata.date;
+
+      btnCommitChange.addEventListener("click", async function (evt) {
+
+      let url = "/listitems";
+
+              const updata = {
+                text: txtItemname.value,
+                date: itemDate.value,
+                listitemsid: listitemdata.listitemsid
+              };
+
+              let cfg = {
+                method: "PUT",
+                headers: {
+                  "content-type": "application/json",
+                  //"authorization":token
+                },
+                body: JSON.stringify(updata),
+              };
+
+              try {
+                let response = await fetch(url, cfg);
+                let data = await response.json();
+
+                if (response.status != 200) {
+                  console.log(data.msg);
+                }
+
+                location.href = "listitems.html";
+
+              } catch (error) {
+                console.log(error);
+              }
+              //listListItems();
+
+            });
+      
+    </script>
+
+  </body>
+</html>
