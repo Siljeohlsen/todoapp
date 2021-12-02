@@ -8,14 +8,19 @@
   <body>
     <!----------- HTML-elements -------------->
     <button id="btnHome">Back to Home</button>
-    <button id="btnBack">Back to Create list</button> <br />
+    <button id="btnBack">Back to Create list</button> <br/>
+
     <h1>Edit list</h1>
     <input id="inpListHeading" type="text" />
-    <button id="btnCommitChange">Commit changes</button><br />
+    <button id="btnCommitChange">Commit changes</button><br/>
+
+    <!----------- Javascript -------------->
     <script>
+
       let btnCommitChange = document.getElementById("btnCommitChange");
       let btnHome = document.getElementById("btnHome");
       let btnBack = document.getElementById("btnBack");
+      
 
       // Back button  -----------------------
       btnBack.addEventListener("click", async function (evt) {
@@ -48,8 +53,8 @@
         let cfg = {
           method: "PUT",
           headers: {
-            "content-type": "application/json",
-            //"authorization":token
+            "content-type": "application/json"
+           
           },
           body: JSON.stringify(updata),
         };
@@ -62,11 +67,10 @@
             console.log(data.msg);
           }
 
-          //location.href = "createlist.html";
+          
         } catch (error) {
           console.log(error);
         }
-        //listListItems();
       });
     </script>
   </body>

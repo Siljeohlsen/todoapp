@@ -32,14 +32,14 @@
     <script>
            
 
-let inpUsername = document.getElementById('inpUsername');
-let inpPassword = document.getElementById('inpPassword');
-let btnCreateNewList = document.getElementById('btnCreateNewList');
-let btnPublicLists = document.getElementById('btnPublicLists');
-let btnLogin = document.getElementById('btnLogin');
-let btnAccount = document.getElementById('btnAccount');
-let btnCreateuser = document.getElementById('btnCreateuser');
-let txtResult = document.getElementById('txtResult');
+        let inpUsername = document.getElementById('inpUsername');
+        let inpPassword = document.getElementById('inpPassword');
+        let btnCreateNewList = document.getElementById('btnCreateNewList');
+        let btnPublicLists = document.getElementById('btnPublicLists');
+        let btnLogin = document.getElementById('btnLogin');
+        let btnAccount = document.getElementById('btnAccount');
+        let btnCreateuser = document.getElementById('btnCreateuser');
+        let txtResult = document.getElementById('txtResult');
 
 btnCreateNewList.addEventListener('click', async function(evt){
     window.location.href = "createlist.html";
@@ -92,7 +92,7 @@ window.location.href = "createuser.html";
 
 
 
-//-------------------------------------------
+// Create credential function -------------------------
 function createCredentialString(username, password) {
 let combinedStr = username + ":" + password;
 let b64Str = btoa(combinedStr);

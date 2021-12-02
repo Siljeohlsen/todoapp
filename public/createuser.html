@@ -12,6 +12,7 @@
     
     <button id="btnHome">Back to Home</button> <br>
     <h1> Create new user </h1>
+
     <input id="inpUsername" type="text" placeholder="User name"/>
     <input id="inpPassword" type="password" placeholder="Password"/> <br><br>
   
@@ -22,10 +23,12 @@
     <!------------- JavaScript --------------->
     <script>
 
-       let inpUsername = document.getElementById('inpUsername');
+        let inpUsername = document.getElementById('inpUsername');
         let inpPassword = document.getElementById('inpPassword');
+
         let btnHome = document.getElementById('btnHome');
         let btnCreate = document.getElementById('btnCreate');
+
         let txtResult = document.getElementById('txtResult');
 
     // Back to home button  -----------------------
@@ -34,8 +37,7 @@
     
     });
 
-
-
+         // Create user button ---------
         btnCreate.addEventListener('click', async function(evt) {
             
             let url = "/users";
@@ -64,12 +66,12 @@
         });
 
 
-//-------------------------------------------
-function createCredentialString(username, password) {
-    let combinedStr = username + ":" + password;
-    let b64Str = btoa(combinedStr);
-    return "basic " + b64Str;
-}
+        // Create credential function --------------------
+        function createCredentialString(username, password) {
+            let combinedStr = username + ":" + password;
+            let b64Str = btoa(combinedStr);
+            return "basic " + b64Str;
+        }
     
     </script>
 

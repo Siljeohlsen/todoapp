@@ -6,7 +6,7 @@ const router = express.Router();
 
 // endpoints -----------------------------
 
-// user login ---------------------------
+// User login ---------------------------
 router.post("/users/login", async function(req, res, next) {
     
     let credString = req.headers.authorization;
@@ -49,22 +49,7 @@ router.post("/users/login", async function(req, res, next) {
     
 });
 
-// list all users -----------------------
-router.get("/users", async function(req, res, next){
-
-    res.status(200).send("Hello from GET - /users").end();
-    /*
-    try {
-        let data = await database.getAllUsers();
-        res.status(200).json(data.rows).end();
-    }
-    catch(err) {
-        next(err);
-    }
-    */
-});
-
-// create new user -----------------------
+// Create new user -----------------------
 router.post("/users", async function(req, res, next){
     
     let credString = req.headers.authorization;
@@ -96,16 +81,14 @@ router.post("/users", async function(req, res, next){
   
 });
 
-
-
-// delete a user -----------------------
+// Delete user -----------------------
 router.delete("/users/delete", protect, async function(req, res, next){
     
-   // let updata = req.body; // viktig
+
    let userid = res.locals.userid;
 
     try {
-       let data = await database.deleteUser(userid); // riktig parametere = Users/ id,passord, salt
+       let data = await database.deleteUser(userid); 
 
         if (data.rows.length > 0) {
             res.status(200).json({msg: "The user was deleted succesfully"}).end();
