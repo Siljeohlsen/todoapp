@@ -8,10 +8,9 @@
   <body>
     <!----------- HTML-elements -------------->
     <button id="btnHome">Back to Home</button>
-    <button id="btnBack">Back to List items</button> <br />
-    <h1>Edit item</h1>
-    <input id="inpItemname" type="text" />
-    <input id="inpDate" type="date" /><br />
+    <button id="btnBack">Back to Create list</button> <br />
+    <h1>Edit list</h1>
+    <input id="inpListHeading" type="text" />
     <button id="btnCommitChange">Commit changes</button><br />
     <script>
       let btnCommitChange = document.getElementById("btnCommitChange");
@@ -20,7 +19,7 @@
 
       // Back button  -----------------------
       btnBack.addEventListener("click", async function (evt) {
-        window.location.href = "listitems.html";
+        window.location.href = "createlist.html";
       });
 
       // Back to home button  -----------------------
@@ -28,25 +27,23 @@
         window.location.href = "index.html";
       });
 
-      let listitemdataJson = localStorage.getItem("listitemdata");
-      let listitemdata = JSON.parse(listitemdataJson);
 
-      console.log(listitemdata);
 
-      let txtItemname = document.getElementById("inpItemname");
-      txtItemname.value = listitemdata.text;
+      let listdataJson = localStorage.getItem("listdata");
+      let listdata = JSON.parse(listdataJson);
 
-      let itemDate = document.getElementById("inpDate");
-      itemDate.value = listitemdata.date;
+      let txtListHeading = document.getElementById("inpListHeading");
+      txtListHeading.value = listdata.heading;
 
       btnCommitChange.addEventListener("click", async function (evt) {
-        let url = "/listitems";
+        let url = "/list/edit";
 
         const updata = {
-          text: txtItemname.value,
-          date: itemDate.value,
-          listitemsid: listitemdata.listitemsid,
+          heading: txtListHeading.value,
+          listid: listdata.listid
         };
+
+        console.log(updata);
 
         let cfg = {
           method: "PUT",
@@ -65,7 +62,7 @@
             console.log(data.msg);
           }
 
-          location.href = "listitems.html";
+          //location.href = "createlist.html";
         } catch (error) {
           console.log(error);
         }

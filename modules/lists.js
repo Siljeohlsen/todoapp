@@ -57,6 +57,26 @@ router.post("/list",  protect, async function(req, res, next) {
 	}
 });
 
+router.put("/list/edit", async (req, res, next) => {
+
+    const updata = req.body;
+
+    try{
+        const data = await database.updateList(updata.heading, updata.listid);
+        if(data.rows.length > 0){
+            res.status(200).json(data.rows).end();
+        }
+        else{
+            res.status(404).json({msg: "Cant find selected list"}).end();
+        }
+    }
+    catch(err){
+        
+		next(err);
+		
+    }
+});
+
 router.delete("/list", protect, async function(req, res, next) {
 
 	let updata = req.body;
@@ -137,12 +157,12 @@ router.delete("/listitems", protect, async function(req, res, next) {
 });
 */ 
 
-router.put('/listitems', async (req, res, next) => {
+router.put("/listitems", async (req, res, next) => {
 
     const updata = req.body;
 
     try{
-        const data = await database.updateListItems(updata.text, updata.date, updata.listitemsid);
+        const data = await database.updateList(updata.text, updata.date, updata.listitemsid);
         if(data.rows.length > 0){
             res.status(200).json(data.rows).end();
         }
