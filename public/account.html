@@ -15,20 +15,21 @@
     <input id="inpUsername" type="text" placeholder="User name"/>
     <input id="inpPassword" type="password" placeholder="Password"/> <br><br>
 
-    <button id="btnChangepassword"> Change password</button> 
+    
     <button id="btnDeleteuser">Delete your user </button> 
-    <h3 id="deleteUpdateStatus">hehe</h3>
+    <h3 id="deleteUpdateStatus"></h3>
     
     <!------------- JavaScript --------------->
     <script>
 
     let inpUsername = document.getElementById('inpUsername');
     let inpPassword = document.getElementById('inpPassword');
-    let btnHome = document.getElementById('btnHome');
-    let btnChangepassword = document.getElementById('btnChangepassword');
-    let btnDeleteuser = document.getElementById('btnDeleteuser');
 
+    let btnHome = document.getElementById('btnHome');
+
+    let btnDeleteuser = document.getElementById('btnDeleteuser');
     let deleteUpdateStatus = document.getElementById('deleteUpdateStatus')
+
 
     // Back to home button  -----------------------
     btnHome.addEventListener('click', async function(evt){
@@ -36,9 +37,7 @@
     
     });
 
-    // Change password -----------------------
-
-    // delete a user -----------------------
+    // Delete a user -----------------------
     btnDeleteuser.addEventListener('click', async function(evt){
 
         alert("Are you sure you want to delete your account?");
@@ -54,15 +53,16 @@
                 "content-type":"application/json",
                 "authorization": token
             }
-           // body: JSON.stringify(updata)
+           
         }
         try {
             let response = await fetch(url, cfg);
             let data = await response.json();
 
             if (response.status != 200) {
-                throw data.msg;
-                console.log(data.msg);
+                deleteUpdateStatus.innerHTML = data.msg;
+            } else {
+                deleteUpdateStatus.innerHTML = data.msg;
             }
 
         
@@ -72,64 +72,6 @@
         }
       } 
     }); 
-
-    // ----- DELETE USER 
-    /*
-    async function deleteUsers(id) {
-
-let url = "/users";
-let token = localStorage.getItem("token");
-
-let updata = {
-    id
-}
-
-let cfg = {
-    method: "DELETE",
-    headers: {
-        "content-type":"application/json",
-        "authorization": token
-    },
-    body: JSON.stringify(updata)
-}
-
-try {
-    let response = await fetch(url, cfg);
-    let data = await response.json();
-
-    if (response.status != 200) {
-        throw data.error;
-    }
-
-   // listTodoLists();
-}
-catch(error) {
-    console.log(error);
-}
-}
-*/
-
-    /* 
-    delete user 
-    aasync function 
-    url
-    token
-
-    updata koblet til riktig sted i databasen  ( table, kolonne id)
-
-    standard cfg
-    token auth
-
-    try/catch
-
-
-    Det kan funke slik at man er logget inn og trykker delete, så kommer det en alert som spør om man er sikker. ok = brukeren slettes. 
-*/
-
-    
-
-  
-
     
     </script>
 

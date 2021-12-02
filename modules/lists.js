@@ -8,7 +8,7 @@ router.get("/list", protect, async function(req, res, next) {
 	
 	console.log(res.locals.username);
 	console.log(res.locals.userid);
-	console.log(res.locals.listid);
+//  console.log(res.locals.listid);
 
 	try{
 		let data = await database.getAllLists();
@@ -42,7 +42,7 @@ router.post("/list",  protect, async function(req, res, next) {
 	console.log(res.locals.listid);
 
 	try{
-		let data = await database.createLists(updata.heading, userid , public);
+		let data = await database.createLists(updata.hea, userid , public);
 
 		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The lists were created succesfully"}).end();
@@ -68,7 +68,7 @@ router.delete("/list", protect, async function(req, res, next) {
 		let data = await database.deleteLists(updata.listid, userid);
 		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The list was deleted succesfully"}).end();
-		}
+		} 	
 		else{
 			console.log(data);
 			throw "The list couldn't be deleted";
