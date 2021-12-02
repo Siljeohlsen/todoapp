@@ -162,7 +162,7 @@ router.put("/listitems", async (req, res, next) => {
     const updata = req.body;
 
     try{
-        const data = await database.updateList(updata.text, updata.date, updata.listitemsid);
+        const data = await database.updateListItems(updata.text, updata.date, updata.listitemsid);
         if(data.rows.length > 0){
             res.status(200).json(data.rows).end();
         }
