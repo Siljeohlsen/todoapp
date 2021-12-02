@@ -1,3 +1,4 @@
+const protect = require('./auth');
 const express = require('express');
 const database = require('./database.js');
 const authUtils = require("./auth_utils.js");
@@ -95,12 +96,13 @@ router.post("/users", async function(req, res, next){
 
 
 // delete a user -----------------------
-router.delete("/users", async function(req, res, next){
+router.delete("/users/delete", protect, async function(req, res, next){
     
-    let updata = req.body; // viktig
+   // let updata = req.body; // viktig
+   let userid = res.locals.userid;
 
     try {
-       let data = await database.deleteUser(updata.id); // riktig parametere = Users/ id,passord, salt
+       let data = await database.deleteUser(userid); // riktig parametere = Users/ id,passord, salt
 
         if (data.rows.length > 0) {
             res.status(200).json({msg: "The user was deleted succesfully"}).end();

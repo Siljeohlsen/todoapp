@@ -17,6 +17,7 @@
 
     <button id="btnChangepassword"> Change password</button> 
     <button id="btnDeleteuser">Delete your user </button> 
+    <h3 id="deleteUpdateStatus">hehe</h3>
     
     <!------------- JavaScript --------------->
     <script>
@@ -26,6 +27,8 @@
     let btnHome = document.getElementById('btnHome');
     let btnChangepassword = document.getElementById('btnChangepassword');
     let btnDeleteuser = document.getElementById('btnDeleteuser');
+
+    let deleteUpdateStatus = document.getElementById('deleteUpdateStatus')
 
     // Back to home button  -----------------------
     btnHome.addEventListener('click', async function(evt){
@@ -41,29 +44,25 @@
         alert("Are you sure you want to delete your account?");
         if(confirm){
                
-    let url = "/users";
+       let url = "/users/delete";
 
-    let token = localStorage.getItem("token");
+        let token = localStorage.getItem("token");
     
-
-        let updata = {
-           id : 1
-        }
-
         let cfg = {
             method: "DELETE",
             headers: {
                 "content-type":"application/json",
                 "authorization": token
-            },
-            body: JSON.stringify(updata)
+            }
+           // body: JSON.stringify(updata)
         }
         try {
             let response = await fetch(url, cfg);
             let data = await response.json();
 
             if (response.status != 200) {
-                throw data.error;
+                throw data.msg;
+                console.log(data.msg);
             }
 
         
@@ -71,12 +70,11 @@
         catch(error) {
             console.log(error);
         }
-    } else {
-            console.log("Dette funket ikke dummen");
-        }
+      } 
     }); 
 
     // ----- DELETE USER 
+    /*
     async function deleteUsers(id) {
 
 let url = "/users";
@@ -109,6 +107,7 @@ catch(error) {
     console.log(error);
 }
 }
+*/
 
     /* 
     delete user 
