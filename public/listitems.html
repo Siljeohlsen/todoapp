@@ -111,11 +111,14 @@
             html += "<p>" + value.text + "</p>";
             div.innerHTML = html;
 
-            /*let delbtn = document.createElement("button");
-                    delbtn.innerHTML = "Delete";
-                
-                    delbtn.addEventListener('click', function(evt) {
-                    }); */
+            let delbtn = document.createElement("button");
+            delbtn.innerHTML = "Delete";
+            delbtn.dataset.id = value.listitemsid;
+           // div.appendChild(delbtn);
+
+            delbtn.addEventListener("click", function (evt) {
+              deleteListItems(evt.currentTarget.dataset.id);
+            });
 
             let btnEdit = document.createElement("button");
             btnEdit.innerHTML = "Edit";
@@ -129,13 +132,45 @@
 
             //div.appendChild(delbtn);
             div.appendChild(btnEdit);
+            div.insertBefore(delbtn, div.lastElementChild);
           }
         } catch (error) {
           console.log(error);
         }
       }
 
-      // Edit list item   -----------------------
+      // ------- Delete List items
+
+      async function deleteListItems(listitemsid) {
+        let url = "/listitems";
+        let token = localStorage.getItem("token");
+
+        let updata = {
+          listitemsid : listitemsid
+        };
+
+        let cfg = {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            authorization: token,
+          },
+          body: JSON.stringify(updata),
+        };
+
+        try {
+          let response = await fetch(url, cfg);
+          let data = await response.json();
+
+          if (response.status != 200) {
+            throw data.error;
+          }
+
+          listListItems();
+        } catch (error) {
+          console.log(error);
+        }
+      }
     </script>
   </body>
 </html>

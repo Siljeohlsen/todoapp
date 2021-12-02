@@ -56,6 +56,12 @@ databaseMethods.createListItems = function(text, date, listid){
     return pool.query(sql, values);
 }
 
+databaseMethods.deleteListItems = function(listitemsid, listid) {
+    let sql = "DELETE FROM listitems WHERE listitemsid = $1 AND listid = $2 RETURNING *";
+    let values = [listitemsid, listid];
+    return pool.query(sql, values); //return the promise
+}
+
 databaseMethods.updateListItems = function (text, date, listitemsid) {
     const sql = "UPDATE listitems SET text = $1, date = $2 WHERE listitemsid = $3 RETURNING *";
     const values = [text, date, listitemsid];
