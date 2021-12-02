@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>ListItems</title>
+</head>
+<body>
+
+    <!----------- HTML-elements -------------->
+    <link rel="stylesheet" href="css.css">
+    <button id="btnHome">Back to Home</button> 
+    <button id="btnBack">Back to Create list</button> <br>
+    <h1 id="heading"></h1>
+    <input id ="inptext" type="text" /><br>
+    <input id ="inpdate" type="date" /><br>
+    <button id="btnCreate">Create list item</button><br>
+ 
+    <div id="container"></div>
+    <h3 id="txtResult"></h3>
+        
+    <!------------- JavaScript --------------->
+    <script>
+
+        let txtheading = document.getElementById('heading');
+        let listid = localStorage.getItem("listid");
+        let listheading = localStorage.getItem("listheading");
+        let btnCreate = document.getElementById('btnCreate');
+        let inptext = document.getElementById('inptext');
+        let txtResult = document.getElementById('txtResult');
+        let token = localStorage.getItem("token");
+        let btnHome = document.getElementById('btnHome');
+        let btnBack = document.getElementById('btnBack');
+
+        txtheading.innerHTML = listheading;
+
+       
+
+        // Back to home button  -----------------------
+        btnHome.addEventListener('click', async function(evt){
+        window.location.href = "index.html";
+        });
+
+          // Back to home button  -----------------------
+          btnBack.addEventListener('click', async function(evt){
+        window.location.href = "createlist.html";
+        });
+
+        btnCreate.addEventListener('click', async function(evt) {
+
+        let url = "/listitems";
+
+        let updata = {
+            text: inptext.value,
+            date: inpdate.value,
+            listID: listid
+            
+        }
+
+        let cfg = {
+            method: "POST",
+            headers: {
+                "content-type":"application/json",
+                "authorization":token
+            },
+            body: JSON.stringify(updata)
+        }
+
+        try {
+            let response = await fetch(url, cfg);
+            let data = await response.json();
+
+
+
+            if (response.status != 200) {
+                throw data.error;
+
+            }
+
+            txtResult.innerHTML = data.msg; //beskjed om det funket eller ikke
+            
+        }
+        catch(error) {
+            console.log(error);
+            txtResult.innerHTML = "Something went wrong - check the console window";
+        }
+        // window.location.reload();
+        listListItems()
+        });
+
+
+
+
+listListItems();
+
+async function listListItems() {           
+            
+
+            let url = "/listitems?listitemsid=" + listid;
+
+            let cfg = {
+                method: "GET",
+                headers: {"authorization": token}
+            };
+
+            try {
+                let response = await fetch(url, cfg);
+                let data = await response.json();
+
+                console.log(data);
+
+                if (response.status != 200) {
+                    throw data.error;
+                }
+                
+
+                container.innerHTML = "";
+
+                for (let value of data) {
+                    
+                    console.log(value);
+                   
+                    let div = document.createElement("div");
+                    container.appendChild(div);
+
+                    let html = "<p>"+value.date + "</p>";
+                    html += "<p>"+value.text + "</p>";
+                    div.innerHTML = html;
+
+
+                    let delbtn = document.createElement("button");
+                    delbtn.innerHTML = "Delete";
+
+                    delbtn.addEventListener('click', function(evt) {
+                        
+                    }); 
+
+                   div.appendChild(delbtn);
+                  
+                    
+                } 
+                
+            }
+            catch(error) {
+                console.log(error);
+            }
+            
+        }
+
+        async function updateListItems() {           
+            
+
+            let url = "/listitems?listitemsid=" + listid;
+
+            let cfg = {
+                method: "GET",
+                headers: {"authorization": token}
+            };
+
+            try {
+                let response = await fetch(url, cfg);
+                let data = await response.json();
+
+                console.log(data);
+
+                if (response.status != 200) {
+                    throw data.error;
+                }
+                
+
+                container.innerHTML = "";
+
+                for (let value of data) {
+                    
+                    console.log(value);
+                   
+                    let div = document.createElement("div");
+                    container.appendChild(div);
+
+                    let html = "<p>"+value.date + "</p>";
+                    html += "<p>"+value.text + "</p>";
+                    div.innerHTML = html;
+
+
+                    let delbtn = document.createElement("button");
+                    delbtn.innerHTML = "Delete";
+
+                    delbtn.addEventListener('click', function(evt) {
+                        
+                    }); 
+
+                   div.appendChild(delbtn);
+                  
+                    
+                } 
+                
+            }
+            catch(error) {
+                console.log(error);
+            }
+            
+        }
+        
+        
+   
+    </script>
+
+</body>
+
+</html>
+
+

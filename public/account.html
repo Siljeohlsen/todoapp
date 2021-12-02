@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>Account Settings</title>
+</head>
+<body>
+
+    <!----------- HTML-elements -------------->
+    <link rel="stylesheet" href="css.css">
+    
+    <button id="btnHome">Back to Home</button> <br>
+    <h1> Account settings </h1>
+    <input id="inpUsername" type="text" placeholder="User name"/>
+    <input id="inpPassword" type="password" placeholder="Password"/> <br><br>
+
+    <button id="btnChangepassword"> Change password</button> 
+    <button id="btnDeleteuser">Delete your user </button> 
+    
+    <!------------- JavaScript --------------->
+    <script>
+
+    let inpUsername = document.getElementById('inpUsername');
+    let inpPassword = document.getElementById('inpPassword');
+    let btnHome = document.getElementById('btnHome');
+    let btnChangepassword = document.getElementById('btnChangepassword');
+    let btnDeleteuser = document.getElementById('btnDeleteuser');
+
+    // Back to home button  -----------------------
+    btnHome.addEventListener('click', async function(evt){
+    window.location.href = "index.html";
+    
+    });
+
+    // Change password -----------------------
+
+    // delete a user -----------------------
+    btnDeleteuser.addEventListener('click', async function(evt){
+
+        alert("Are you sure you want to delete your account?");
+        if(confirm){
+               
+    let url = "/users";
+
+    let token = localStorage.getItem("token");
+    
+
+        let updata = {
+           id : 1
+        }
+
+        let cfg = {
+            method: "DELETE",
+            headers: {
+                "content-type":"application/json",
+                "authorization": token
+            },
+            body: JSON.stringify(updata)
+        }
+        try {
+            let response = await fetch(url, cfg);
+            let data = await response.json();
+
+            if (response.status != 200) {
+                throw data.error;
+            }
+
+        
+        }
+        catch(error) {
+            console.log(error);
+        }
+    } else {
+            console.log("Dette funket ikke dummen");
+        }
+    }); 
+
+    // ----- DELETE USER 
+    async function deleteUsers(id) {
+
+let url = "/users";
+let token = localStorage.getItem("token");
+
+let updata = {
+    id
+}
+
+let cfg = {
+    method: "DELETE",
+    headers: {
+        "content-type":"application/json",
+        "authorization": token
+    },
+    body: JSON.stringify(updata)
+}
+
+try {
+    let response = await fetch(url, cfg);
+    let data = await response.json();
+
+    if (response.status != 200) {
+        throw data.error;
+    }
+
+   // listTodoLists();
+}
+catch(error) {
+    console.log(error);
+}
+}
+
+    /* 
+    delete user 
+    aasync function 
+    url
+    token
+
+    updata koblet til riktig sted i databasen  ( table, kolonne id)
+
+    standard cfg
+    token auth
+
+    try/catch
+
+
+    Det kan funke slik at man er logget inn og trykker delete, så kommer det en alert som spør om man er sikker. ok = brukeren slettes. 
+*/
+
+    
+
+  
+
+    
+    </script>
+
+</body>
+
+</html>

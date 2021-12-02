@@ -1,3 +1,4 @@
+const database = require('./modules/database.js');
 const express = require("express");
 const { createToken } = require("./Modules/auth_utils.js");
 const server = express();

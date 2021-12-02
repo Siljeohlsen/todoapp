@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
 const authUtils = require("./auth_utils.js");
 
 //the middleware function --------------------

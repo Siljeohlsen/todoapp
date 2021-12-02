@@ -1,7 +1,11 @@
 const crypto = require("crypto");
 
 //the secret must be stored in an env. variable in the finished app
+<<<<<<< HEAD
 const secret = "dronningmaudsland";
+=======
+const secret = "michaeljackson";
+>>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
 
 let utils = {};
 
@@ -17,10 +21,17 @@ utils.decodeCred = function(credString) {
     let asciiString = Buffer.from(b64String, "base64").toString("ascii"); // 
 
     //extract the username - using regex
+<<<<<<< HEAD
     cred.username = asciiString.replace(/:.*/, ""); //josteinn
 
     //extract the password 
     cred.password= asciiString.replace(cred.username + ":", ""); //kongolav
+=======
+    cred.username = asciiString.replace(/:.*/, ""); //hawk
+
+    //extract the password 
+    cred.password= asciiString.replace(cred.username + ":", ""); //hawkins
+>>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
 
     return cred; 
 }
@@ -50,7 +61,11 @@ utils.createToken = function(username, userID) {
     let openPart = b64Part1 + "." + b64Part2;
 
     // create the 3. part (signature) using a hash-function in the crypto-module
+<<<<<<< HEAD
     let secret = "dronningmaudsland"; // must be stored in an env. variable in the finished app
+=======
+    let secret = "michaeljackson"; // must be stored in an env. variable in the finished app
+>>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
     let sign = crypto.createHmac("SHA256", secret).update(openPart).digest("base64");
 
     return openPart + "." + sign;
@@ -65,7 +80,11 @@ utils.verifyToken = function(token) {
     let openPart = tokenArr[0] + "." + tokenArr[1];
     let signToCheck = tokenArr[2];
 
+<<<<<<< HEAD
     let secret = "dronningmaudsland"; //must be stored in an env. variable in the finished app
+=======
+    let secret = "michaeljackson"; //must be stored in an env. variable in the finished app
+>>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
     let sign = crypto.createHmac("SHA256", secret).update(openPart).digest("base64");
 
     if (signToCheck != sign) {
