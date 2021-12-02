@@ -6,9 +6,8 @@ div {
     }
 
 body {
-    background-color: rgb(138, 138, 138);
+    background-color: rgb(255, 255, 255);
     padding: 5px;
-    border-style: solid 5px rgb(77, 48, 48);
     text-align: center;
 }
 
@@ -24,57 +23,52 @@ input {
 }
 
 button {
-    background-color: rgb(255, 249, 240, 0.3);
     border-radius: 7px;
-    border-color: grey;
+    background-color: black;
+    color: whitesmoke;
 }
 
 button:hover {
-    background-color: grey;
+    background-color: lightgrey;
     border-radius: 7px;
-
 } 
 
 #btnCreateuser {
-    background-color: rgb(255, 249, 240, 0.3);
+    background-color: black;
     border-radius: 7px;
     width: 150px;
     height: 60px;
     font-size: medium;
-    border-color: grey;
 }
 
 #btnCreateuser:hover {
-    background-color: grey;
+    background-color: lightgrey;
     border-radius: 7px;
 }
 
 #btnHome {
-    background-color: rgb(255, 249, 240, 0.3);
+    background-color: black;
     border-radius: 7px;
     float: left;
-    border-color: grey;
 }
 
 #btnHome:hover {
-    background-color: grey;
+    background-color: lightgrey;
     border-radius: 7px;
 }
 
 #btnBack {
-    background-color: rgb(255, 249, 240, 0.3);
+    background-color: black;
     border-radius: 7px;
     float: left;
-    border-color: grey;
 }
 
 #btnBack:hover {
-    background-color: grey;
+    background-color: lightgrey;
     border-radius: 7px;
 }
 
 #container {
     width: 100%;
-    aspect-ratio: 100/29;
     margin-left: 50px;
 }
