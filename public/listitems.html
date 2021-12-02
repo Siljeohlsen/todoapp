@@ -8,11 +8,14 @@
   <body>
     <!----------- HTML-elements -------------->
     <link rel="stylesheet" href="css.css" />
+
     <button id="btnHome">Back to Home</button>
-    <button id="btnBack">Back to Create list</button> <br />
+    <button id="btnBack">Back to Create list</button> <br/>
+
     <h1 id="heading"></h1>
-    <input id="inptext" type="text" /><br />
-    <input id="inpdate" type="date" /><br />
+    <input id="inptext" type="text" /><br/>
+    <input id="inpdate" type="date" /><br/>
+
     <button id="btnCreate">Create list item</button><br />
 
     <div id="container"></div>
@@ -69,13 +72,13 @@
             throw data.error;
           }
 
-          txtResult.innerHTML = data.msg; //beskjed om det funket eller ikke
+          txtResult.innerHTML = data.msg; 
         } catch (error) {
           console.log(error);
           txtResult.innerHTML =
             "Something went wrong - check the console window";
         }
-        // window.location.reload();
+        
         listListItems();
       });
 
@@ -114,7 +117,7 @@
             let delbtn = document.createElement("button");
             delbtn.innerHTML = "Delete";
             delbtn.dataset.id = value.listitemsid;
-           // div.appendChild(delbtn);
+           
 
             delbtn.addEventListener("click", function (evt) {
               deleteListItems(evt.currentTarget.dataset.id);
@@ -130,7 +133,7 @@
               location.href = "listitemsedit.html";
             });
 
-            //div.appendChild(delbtn);
+           
             div.appendChild(btnEdit);
             div.insertBefore(delbtn, div.lastElementChild);
           }

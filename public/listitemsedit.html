@@ -8,11 +8,13 @@
   <body>
     <!----------- HTML-elements -------------->
     <button id="btnHome">Back to Home</button>
-    <button id="btnBack">Back to List items</button> <br />
+    <button id="btnBack">Back to List items</button> <br/>
     <h1>Edit item</h1>
-    <input id="inpItemname" type="text" />
-    <input id="inpDate" type="date" /><br />
-    <button id="btnCommitChange">Commit changes</button><br />
+
+    <input id="inpItemname" type="text"/>
+    <input id="inpDate" type="date"/><br/>
+    <button id="btnCommitChange">Commit changes</button><br/>
+
     <script>
       let btnCommitChange = document.getElementById("btnCommitChange");
       let btnHome = document.getElementById("btnHome");
@@ -51,8 +53,7 @@
         let cfg = {
           method: "PUT",
           headers: {
-            "content-type": "application/json",
-            //"authorization":token
+            "content-type": "application/json"
           },
           body: JSON.stringify(updata),
         };
@@ -69,7 +70,6 @@
         } catch (error) {
           console.log(error);
         }
-        //listListItems();
       });
     </script>
   </body>

@@ -13,6 +13,7 @@
 
     <div id="container"></div>
 
+
     <!------------- JavaScript --------------->
     <script>
       let btnHome = document.getElementById("btnHome");
@@ -22,8 +23,9 @@
         window.location.href = "index.html";
       });
 
-      //endring
+      
 
+      // List public lists  -----------------------
       let container = document.getElementById("container");
 
       async function listTodoLists() {
@@ -81,7 +83,7 @@
 
       listTodoLists();
      
-       // ------- Delete Lists
+       // Delete lists  -----------------------
 
        async function deleteTodoLists(listid) {
         let url = "/list";

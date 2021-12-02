@@ -12,15 +12,17 @@
     <button id="btnHome">Back to Home</button> <br />
     <h1>Create new list</h1>
 
-    <input id="inpHeading" type="text" /><br />
+    <input id="inpHeading" type="text"/> <br/>
     <span>Public: </span><input id="chkPublic" type="checkbox" value="1" />
     <button id="btnCreate">Create list</button><br />
+    
     <h3 id="txtResult"></h3>
 
     <div id="container" style="width: 100%" class="row-padding"></div>
 
     <!------------- JavaScript --------------->
     <script>
+
       // Back to home button ---------
       btnHome.addEventListener("click", async function (evt) {
         window.location.href = "index.html";
@@ -31,8 +33,7 @@
       let txtResult = document.getElementById("txtResult");
       let chkPublic = document.getElementById("chkPublic");
 
-      // let inpListtext = document.getElementById('inpListtext');
-      // let listItemsInput = document.getElementById('inputListItems');
+      
 
       btnCreate.addEventListener("click", async function (evt) {
         let url = "/list";
@@ -68,15 +69,15 @@
             throw data.error;
           }
 
-          txtResult.innerHTML = data.msg; //beskjed om det funket eller ikke
+          txtResult.innerHTML = data.msg; 
         } catch (error) {
           console.log(error);
           txtResult.innerHTML = "Could not create list - log in";
         }
-        // window.location.reload();
         listTodoLists();
       });
 
+      // List lists ---------
       let container = document.getElementById("container");
 
       async function listTodoLists() {
@@ -126,7 +127,7 @@
 
             let btnEdit = document.createElement("button");
             btnEdit.innerHTML = "Edit";
-            //div.appendChild(btnEdit);
+            
 
             btnEdit.addEventListener("click", async function (evt) {
               let listdataJson = JSON.stringify(value);
@@ -136,8 +137,6 @@
               console.log(listdataJson);
             });
 
-            //div.appendChild(delbtn);
-           
             div.insertBefore(btnEdit, div.lastElementChild);
             div.insertBefore(itemsbtn, div.lastElementChild);
             div.insertBefore(delbtn, div.lastElementChild);
@@ -181,6 +180,7 @@
           console.log(error);
         }
       }
+      
     </script>
   </body>
 </html>
