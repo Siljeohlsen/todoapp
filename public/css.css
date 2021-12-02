@@ -6,92 +6,75 @@ div {
     }
 
 body {
-    background-color: rgba(204, 198, 198, 0.4);
+    background-color: rgb(138, 138, 138);
     padding: 5px;
     border-style: solid 5px rgb(77, 48, 48);
     text-align: center;
 }
 
 h1 {
-    font-size: xx-large;
-    color: rgb(70, 40, 40);  
-}
-
-h3 {
-    color: rgb(70, 40, 40);
-}
-
-h4 {
-    color: rgb(70, 40, 40);
+    font-size: xx-large; 
 }
 
 input {
     border-radius: 7px;
     background-color: rgb(255, 249, 240, 0.3);
-    border-color:rgba(197, 175, 175, 0.4);
     margin-bottom: 5px;
+    border-color: black;
 }
 
 button {
-    color: rgb(70, 40, 40);
     background-color: rgb(255, 249, 240, 0.3);
     border-radius: 7px;
-    border-color: rgba(197, 175, 175, 0.4);
+    border-color: grey;
 }
 
 button:hover {
-    background-color: rgb(194, 176, 176);
+    background-color: grey;
     border-radius: 7px;
-    border-color:  rgba(197, 175, 175, 0.4);
+
 } 
 
 #btnCreateuser {
-    color: rgb(70, 40, 40);
     background-color: rgb(255, 249, 240, 0.3);
     border-radius: 7px;
-    border-color: rgba(197, 175, 175, 0.4);
     width: 150px;
     height: 60px;
     font-size: medium;
+    border-color: grey;
 }
 
 #btnCreateuser:hover {
-    background-color: rgb(194, 176, 176);
+    background-color: grey;
     border-radius: 7px;
-    border-color: rgba(197, 175, 175, 0.4);
 }
 
 #btnHome {
-    color: rgb(70, 40, 40);
     background-color: rgb(255, 249, 240, 0.3);
     border-radius: 7px;
-    border-color: rgba(197, 175, 175, 0.4);
     float: left;
+    border-color: grey;
 }
 
 #btnHome:hover {
-    background-color: rgb(194, 176, 176);
+    background-color: grey;
     border-radius: 7px;
-    border-color:  rgba(197, 175, 175, 0.4);
 }
 
 #btnBack {
-    color: rgb(70, 40, 40);
     background-color: rgb(255, 249, 240, 0.3);
     border-radius: 7px;
-    border-color: rgba(197, 175, 175, 0.4);
     float: left;
+    border-color: grey;
 }
 
 #btnBack:hover {
-    background-color: rgb(194, 176, 176);
+    background-color: grey;
     border-radius: 7px;
-    border-color:  rgba(197, 175, 175, 0.4);
 }
 
 #container {
     width: 100%;
     aspect-ratio: 100/29;
     margin-left: 50px;
-    color: rgb(70, 40, 40);
 }

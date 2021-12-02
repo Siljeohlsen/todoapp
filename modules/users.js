@@ -1,9 +1,5 @@
 const express = require('express');
-<<<<<<< HEAD
 const db = require('./db.js');
-=======
-const database = require('./database.js');
->>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
 const authUtils = require("./auth_utils.js");
 const router = express.Router();
 
@@ -11,10 +7,6 @@ const router = express.Router();
 
 // user login ---------------------------
 router.post("/users/login", async function(req, res, next) {
-<<<<<<< HEAD
-=======
-    
->>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
     let credString = req.headers.authorization;
     let cred = authUtils.decodeCred(credString);
 
@@ -24,11 +16,7 @@ router.post("/users/login", async function(req, res, next) {
     }
 
     try {
-<<<<<<< HEAD
         let data = await db.getUser(cred.username);
-=======
-        let data = await database.getUser(cred.username);
->>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
 
         if (data.rows.length > 0) {
             let userid = data.rows[0].id;
@@ -56,42 +44,22 @@ router.post("/users/login", async function(req, res, next) {
     catch (err) {
         next(err);
     }
-<<<<<<< HEAD
-=======
-    
->>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
 });
 
 // list all users -----------------------
 router.get("/users", async function(req, res, next){
 
-<<<<<<< HEAD
     try {
         let data = await db.getAllUsers();
-=======
-    res.status(200).send("Hello from GET - /users").end();
-    /*
-    try {
-        let data = await database.getAllUsers();
->>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
         res.status(200).json(data.rows).end();
     }
     catch(err) {
         next(err);
     }
-<<<<<<< HEAD
-=======
-    */
->>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
 });
 
 // create new user -----------------------
 router.post("/users", async function(req, res, next){
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
     let credString = req.headers.authorization;
     let cred = authUtils.decodeCred(credString);
 
@@ -103,11 +71,7 @@ router.post("/users", async function(req, res, next){
     let hash = authUtils.createHash(cred.password);
 
     try {
-<<<<<<< HEAD
         let data = await db.createUser(cred.username, hash.value, hash.salt);
-=======
-        let data = await database.createUser(cred.username, hash.value, hash.salt);
->>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
 
         if (data.rows.length > 0) {
             res.status(200).json({msg: "The user was created succesfully"}).end();
@@ -119,37 +83,11 @@ router.post("/users", async function(req, res, next){
     catch(err) {
         next(err);
     }
-<<<<<<< HEAD
 });
 
 // delete a user -----------------------
 router.delete("/users", async function(req, res, next){
     res.status(200).send("Hello from DELETE - /users").end();
-=======
-  
-});
-
-
-
-// delete a user -----------------------
-router.delete("/users", async function(req, res, next){
-    
-    let updata = req.body; // viktig
-
-    try {
-       let data = await database.deleteUser(updata.id); // riktig parametere = Users/ id,passord, salt
-
-        if (data.rows.length > 0) {
-            res.status(200).json({msg: "The user was deleted succesfully"}).end();
-        }
-        else{
-            throw "The user couldnt be deleted";
-        }
-    }
-    catch(err) {
-        next(err);
-    }
->>>>>>> 35e3190ef6ab024a15af514254aa4a0e6b3301fb
 });
 
 // -------------------------------------
