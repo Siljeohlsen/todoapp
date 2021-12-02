@@ -83,19 +83,15 @@ router.delete("/list", protect, async function(req, res, next) {
 	let userid = res.locals.userid;
 
 	try{
-		console.log("User id ", userid);
-		console.log(updata);
 		let data = await database.deleteLists(updata.listid, userid);
 		if (data.rows.length > 0) {
 			res.status(200).json({msg: "The list was deleted succesfully"}).end();
 		}
 		else{
-			console.log(data);
 			throw "The list couldn't be deleted";
 		}
 	}
 	catch(err) {
-		console.log(err);
 		next(err);
 	}
 });
@@ -135,27 +131,27 @@ router.post("/listitems",  protect, async function(req, res, next) {
 	}
 });
 
-/*
+
 
 router.delete("/listitems", protect, async function(req, res, next) {
 
 	let updata = req.body;
-	let listitemsid = res.locals.listitemsid;
+	let listid = res.locals.listid;
 
 	try{
-		let data = await database.deleteLists(updata.id, userid);
+		let data = await database.deleteListItems(updata.listitemsid, listid);
 		if (data.rows.length > 0) {
-			res.status(200).json({msg: "The list was deleted succesfully"}).end();
+			res.status(200).json({msg: "The list item was deleted succesfully"}).end();
 		}
 		else{
-			throw "The list couldn't be deleted";
+			throw "The list item couldn't be deleted";
 		}
 	}
 	catch(err) {
 		next(err);
 	}
 });
-*/ 
+
 
 router.put("/listitems", async (req, res, next) => {
 
