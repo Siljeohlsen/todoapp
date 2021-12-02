@@ -146,6 +146,61 @@ async function listListItems() {
             }
             
         }
+
+        async function updateListItems() {           
+            
+
+            let url = "/listitems?listitemsid=" + listid;
+
+            let cfg = {
+                method: "GET",
+                headers: {"authorization": token}
+            };
+
+            try {
+                let response = await fetch(url, cfg);
+                let data = await response.json();
+
+                console.log(data);
+
+                if (response.status != 200) {
+                    throw data.error;
+                }
+                
+
+                container.innerHTML = "";
+
+                for (let value of data) {
+                    
+                    console.log(value);
+                   
+                    let div = document.createElement("div");
+                    container.appendChild(div);
+
+                    let html = "<p>"+value.date + "</p>";
+                    html += "<p>"+value.text + "</p>";
+                    div.innerHTML = html;
+
+
+                    let delbtn = document.createElement("button");
+                    delbtn.innerHTML = "Delete";
+
+                    delbtn.addEventListener('click', function(evt) {
+                        
+                    }); 
+
+                   div.appendChild(delbtn);
+                  
+                    
+                } 
+                
+            }
+            catch(error) {
+                console.log(error);
+            }
+            
+        }
+        
         
    
     </script>
