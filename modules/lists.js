@@ -8,7 +8,7 @@ router.get("/list", protect, async function(req, res, next) {
 	
 	console.log(res.locals.username);
 	console.log(res.locals.userid);
-	console.log(res.locals.listid);
+	
 
 	try{
 		let data = await database.getAllLists();

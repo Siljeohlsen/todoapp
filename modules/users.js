@@ -71,7 +71,7 @@ router.post("/users", async function(req, res, next){
     let cred = authUtils.decodeCred(credString);
 
     if (cred.username == "" || cred.password == ""){
-        res.status(401).json({error: "No username or password"}).end();
+        res.status(401).json({msg: "No username or password"}).end();
         return;
     }
 
@@ -83,11 +83,14 @@ router.post("/users", async function(req, res, next){
         if (data.rows.length > 0) {
             res.status(200).json({msg: "The user was created succesfully"}).end();
         }
-        else{
-            throw "The user couldnt be created";
-        }
+        
     }
     catch(err) {
+        if(err.constraint === "username_unique"){
+            res.status(400).json({msg: "Username already taken"}).end();
+        }else{
+            res.status(403).json({msg: "Wrong username or password"}).end(); 
+        }
         next(err);
     }
   
@@ -106,6 +109,8 @@ router.delete("/users/delete", protect, async function(req, res, next){
 
         if (data.rows.length > 0) {
             res.status(200).json({msg: "The user was deleted succesfully"}).end();
+        }else if(data.rows.length = 0){
+            res.status(404).json({msg: "No data, login to delete user"}).end();
         }
         else{
             throw "The user couldnt be deleted";

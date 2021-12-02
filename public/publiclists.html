@@ -53,6 +53,15 @@
             div.innerHTML = html;
             container.appendChild(div);
 
+            let delbtn = document.createElement("button");
+            delbtn.innerHTML = "Delete";
+            delbtn.dataset.id = value.listid;
+            
+
+            delbtn.addEventListener("click", function (evt) {
+              deleteTodoLists(evt.currentTarget.dataset.id);
+            });
+
             let itemsbtn = document.createElement("button");
             itemsbtn.innerHTML = "Go to list";
 
@@ -62,6 +71,7 @@
               location.href = "listitems.html";
             });
 
+            div.insertBefore(delbtn, div.lastElementChild);
             div.insertBefore(itemsbtn, div.lastElementChild);
           }
         } catch (error) {
@@ -70,98 +80,39 @@
       }
 
       listTodoLists();
-      /* 
-
-        let container = document.getElementById('container');
-
-        async function listTodoLists() {
-
-            let url = "/list";
-
-            let token = localStorage.getItem("token");
-
-            let cfg = {
-                method: "GET",
-                headers: {"authorization": token}
-            };
-
-            try {
-                let response = await fetch(url, cfg);
-                let data = await response.json();
-
-                if (response.status != 200) {
-                    throw data.error;
-                }
-                // trenger jeg en ny try??
-
-                container.innerHTML = "";
-
-                for (let value of data) {
-                    
-                    let date = new Date(value.date);
-
-                    
-                    let html = "<h2>" + value.heading + "</h2>";
-                    // ny løkke
-
-                    html += "<p>" + date.toLocaleDateString() + "</p>";
-                    html += "<p>" + value.listtext + "</p><hr>";
-
-                    let div = document.createElement("div");
-                    div.innerHTML = html;
-                    container.appendChild(div);
-
-                    let delbtn = document.createElement("button");
-                    delbtn.innerHTML = "Delete";
-
-                    delbtn.addEventListener('click', function(evt) {
-                        deleteTodoLists(value.id);
-                    });
-
-                    div.insertBefore(delbtn, div.lastElementChild);
      
-                }
-            }
-            catch(error) {
-                console.log(error);
-            }
+       // ------- Delete Lists
+
+       async function deleteTodoLists(listid) {
+        let url = "/list";
+        let token = localStorage.getItem("token");
+
+        let updata = {
+          listid,
+        };
+
+        let cfg = {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            authorization: token,
+          },
+          body: JSON.stringify(updata),
+        };
+
+        try {
+          let response = await fetch(url, cfg);
+          let data = await response.json();
+
+          if (response.status != 200) {
+            throw data.error;
+          }
+
+          listTodoLists();
+        } catch (error) {
+          console.log(error);
         }
-
-        async function deleteTodoLists(todoappId) {
-
-            let url = "/list";
-            let token = localStorage.getItem("token");
-
-            let updata = {
-                id: todoappId
-            }
-
-            let cfg = {
-                method: "DELETE",
-                headers: {
-                    "content-type":"application/json",
-                    "authorization": token
-                },
-                body: JSON.stringify(updata)
-            }
-
-            try {
-                let response = await fetch(url, cfg);
-                let data = await response.json();
-
-                if (response.status != 200) {
-                    throw data.error;
-                }
-
-                listTodoLists();
-            }
-            catch(error) {
-                console.log(error);
-            }
-        }
-
-        listTodoLists();
-        */
+      }
     </script>
   </body>
 </html>
