@@ -1,57 +1,52 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TestClient</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <!----------- HTML-elements -------------->
-    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="css.css" />
 
-    <button id="btnHome">Back to Home</button> <br>
-    
+    <button id="btnHome">Back to Home</button> <br />
+
     <div id="container"></div>
-        
+
     <!------------- JavaScript --------------->
     <script>
+      let btnHome = document.getElementById("btnHome");
 
-    let btnHome = document.getElementById('btnHome');
+      // Back to home button  -----------------------
+      btnHome.addEventListener("click", async function (evt) {
+        window.location.href = "index.html";
+      });
 
-    // Back to home button  -----------------------
-    btnHome.addEventListener('click', async function(evt){
-    window.location.href = "index.html";
-    });
+      //endring
 
-    //endring
+      let container = document.getElementById("container");
 
-let container = document.getElementById('container');
+      async function listTodoLists() {
+        let url = "/sharelist";
 
-async function listTodoLists() {
+        let token = localStorage.getItem("token");
 
-    let url = "/sharelist";
+        let cfg = {
+          method: "GET",
+          headers: { authorization: token },
+        };
 
-    let token = localStorage.getItem("token");
+        try {
+          let response = await fetch(url, cfg);
+          let data = await response.json();
 
-    let cfg = {
-        method: "GET",
-        headers: {"authorization": token}
-    };
-
-    try {
-        let response = await fetch(url, cfg);
-        let data = await response.json();
-
-        if (response.status != 200) {
+          if (response.status != 200) {
             throw data.error;
-        }
-        
+          }
 
-        container.innerHTML = "";
+          container.innerHTML = "";
 
-        for (let value of data) {
-              
+          for (let value of data) {
             let html = "<h2>" + value.heading + "</h2>";
 
             let div = document.createElement("div");
@@ -61,25 +56,21 @@ async function listTodoLists() {
             let itemsbtn = document.createElement("button");
             itemsbtn.innerHTML = "Go to list";
 
-            itemsbtn.addEventListener('click', function(evt) {
-
-                localStorage.setItem("listheading", value.heading);
-                localStorage.setItem("listid", value.listid);
-                location.href = "listitems.html";
-
+            itemsbtn.addEventListener("click", function (evt) {
+              localStorage.setItem("listheading", value.heading);
+              localStorage.setItem("listid", value.listid);
+              location.href = "listitems.html";
             });
-            
-            div.insertBefore(itemsbtn, div.lastElementChild);
-            
-        }
-    }
-    catch(error) {
-        console.log(error);
-    }
-}
 
-listTodoLists();
-        /* 
+            div.insertBefore(itemsbtn, div.lastElementChild);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      listTodoLists();
+      /* 
 
         let container = document.getElementById('container');
 
@@ -171,9 +162,6 @@ listTodoLists();
 
         listTodoLists();
         */
-   
     </script>
-
-</body>
-
+  </body>
 </html>
