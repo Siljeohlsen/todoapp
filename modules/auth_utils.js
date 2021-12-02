@@ -1,8 +1,5 @@
 const crypto = require("crypto");
-
-//the secret must be stored in an env. variable in the finished app
-// const secret = process.env.secret;
-const secret = "michaeljackson";
+const secret = process.env.secret;
 let utils = {};
 
 //Decode Credentials -----------------------------------------
