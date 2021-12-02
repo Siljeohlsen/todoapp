@@ -11,7 +11,7 @@ let databaseMethods = {}; //create empty object
 
 // ----------------------------
 databaseMethods.getAllLists = function() {
-    let sql = "SELECT * FROM list";
+    let sql = "SELECT * FROM list WHERE public = 0";
     return pool.query(sql); //return the promise
 }
 
