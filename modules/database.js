@@ -1,7 +1,5 @@
 const pg = require("pg");
-const tdaURI =
-  "postgres://flalmtnwfbbbbb:de7cc447a76ac3df6befa56cfb98f558c13473b7c352234cdc4bb42212fe8a5e@ec2-54-195-246-55.eu-west-1.compute.amazonaws.com:5432/d7bccibc5r5hti";
-const connstring = process.env.DATABASE_URL || tdaURI; //absolutt siste steg å fjerne denne + den over
+const connstring = process.env.DATABASE_URL;
 const pool = new pg.Pool({
   connectionString: connstring,
   ssl: { rejectUnauthorized: false },
