@@ -56,7 +56,8 @@ btnLogin.addEventListener('click', async function(evt) {
     let url = "/users/login";
     let credString = createCredentialString(inpUsername.value, inpPassword.value);
     
-
+    // Her sendes informasjonen som lages i createCredentialString til serveren. Vi bruker HTTP protokollen POST, og legger stringen i
+    // headeren. 
     let cfg = {
         method : "POST",
         headers : {"authorization" : credString},
@@ -93,6 +94,10 @@ window.location.href = "createuser.html";
 
 
 // Create credential function -------------------------
+// Creating (coding) a credential-string. Notice we are using a function called btoa for coding the string into base64 (binær data i
+// ASCII-string format). Dette skjer på klienten. Dekoding skjer på serveren. 
+// Her lages det en string som kombinerer brukernavn og passord, og setter de sammen med et semikolon ":" i midten. Dette betyr at vi ikke
+// kan bruke semikolon i passord eller brukernavn.  
 function createCredentialString(username, password) {
 let combinedStr = username + ":" + password;
 let b64Str = btoa(combinedStr);

@@ -49,7 +49,7 @@ utils.createHash = function (password) {
 // Part1 / HEADER: JSON som inneholder informasjon om hashing-algoritmen som brukes til å generere signaturen. 
 // Part 2 / PAYLOAD: JSON som inneholder informasjon (claims), som brukernavn, brukerID, og når token ble laget. 
 // Part 3 / SIGNATURE: Header og payload blir begge kodet inn i base64 også kombinert med et punktum mellom. Den blir så hashet med
-// krypteringsalgoritme som blir funnet i headeren. Den resulterende hashen blir så lagt til som den tredje delen av stringen etter et
+// krypteringsalgoritmen som blir funnet i headeren. Den resulterende hashen blir så lagt til som den tredje delen av stringen etter et
 // punktum. 
 
 // Token blir så lagret på klienten (typisk i local storage, dette gjør vi og), også sent til serveren med autoriserings-headeren:
@@ -85,6 +85,8 @@ utils.createToken = function (username, userID) {
 // Verify Token -----------------------------------------
 // Når serveren tar i mot en token fra klienten, blir den verifisert ved å hashe header/payload (part1 & part2), også sjekker om resultatet
 // er det samme som signaturen. Om tokenen har en utløpsdato blir dette også sjekket her med Issued At Time-informasjonen "iat".
+
+// Vi kommer til å få forskjellige resultat når dette testes ettersom "iat"'en/ Issued At Time'en er forskjellig hver gang.
 
 utils.verifyToken = function (token) {
   //using the string-method split to extract the three parts into an array

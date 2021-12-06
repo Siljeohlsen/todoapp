@@ -1,5 +1,7 @@
 const pg = require("pg");
-const connstring = process.env.DATABASE_URL;
+const connstring = process.env.DATABASE_URL; // her brukes en environment variable for å skjule URL'en til databasen vår, 
+// denne ble opprettet på herouk inne på appen vår. Om vi ikke hadde hatt denne ville hvem som helst hatt tilgang til databasen 
+// ettersom githuben vår er offentlig. 
 const pool = new pg.Pool({
   connectionString: connstring,
   ssl: { rejectUnauthorized: false },
