@@ -1,0 +1,20 @@
+HTTP protokollene vi har brukt: 
+
+- GET is used to request data from a specified resource(Databasen i Postgres PGAdmin 4 i vårt tilelle)
+
+- POST is used to send data to a server to create/update a resource. Data sendt to the server with POST is stored in 
+    the request body of the HTTP request.
+
+- PUT is used to send data to a server to create/update a resource. The difference between POST and PUT is that PUT requests are idempotent.
+    That is, calling the same PUT request multiple times will always produce the same result. In contrast, calling a POST request repeatedly 
+    have side effects of creating the same resource multiple times. 
+
+- DELETE method deletes the specified resource. 
+
+
+
+- ENDPOINT is the bit of software/hardware where communication with the outside world happens. Its the point of entry. 
+
+- SALT - Fordi vi får den samme hashen fra det samme passordet er det mulig for noen som har tilgang til databasen å søke etter hasher for
+    å få tak i brukernavn og passord. For å unngå dette "salter" vi passordet. Dette betyr at vi legger til en tilfeldig string (tekst) til
+    passordet, som vi også lagrer i databasen. 
