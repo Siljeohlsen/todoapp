@@ -15,6 +15,8 @@ HTTP protokollene vi har brukt:
 
 - ENDPOINT is the bit of software/hardware where communication with the outside world happens. Its the point of entry. 
 
+- MIDDLEWARE er functions på server som gjøre noe annet før de kommer til endpoints
+
 - SALT - Fordi vi får den samme hashen fra det samme passordet er det mulig for noen som har tilgang til databasen å søke etter hasher for
     å få tak i brukernavn og passord. For å unngå dette "salter" vi passordet. Dette betyr at vi legger til en tilfeldig string (tekst) til
     passordet, som vi også lagrer i databasen. 

@@ -34,7 +34,10 @@
       let chkPublic = document.getElementById("chkPublic");
 
       
-
+/*Client sender request til server. Når Client kontakter serveren
+må request inneholde info om adressen til serveren og ressursene vi vil hente.
+Adressen er URL'en og infoen vi henter ut her er "publicvalue", om listen skal 
+være public eller ikke*/
       btnCreate.addEventListener("click", async function (evt) {
         let url = "/list";
         let publicvalue;
