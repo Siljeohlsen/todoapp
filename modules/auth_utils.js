@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const secret = process.env.secret;  // her brukes environment variable for å skjule "hemmeligheten", denne ble opprettet på herouk inne
+const secret = process.env.secret;  // her brukes environment variable for å skjule "hemmeligheten", denne ble opprettet på heroku inne
 //på appen vår. 
 let utils = {};
 
@@ -116,6 +116,10 @@ utils.verifyToken = function (token) {
   //token ok
   return payload;
 };
+
+
+// Verifiserer passord. Får inn passord fra bruker, hash fra database og salt fra database og sjekker om de stemmer overens med hverandre.
+// om de ikke stemmer overens returneres false. 
 
 // Verify Password -----------------------------------------
 utils.verifyPassword = function (pswFromUser, hashFromDB, saltFromDB) {

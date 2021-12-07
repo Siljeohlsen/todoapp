@@ -105,4 +105,5 @@ router.delete("/users/delete", protect, async function(req, res, next){
 });
 
 // -------------------------------------
+// Exporterer alle funksjonene så de kan brukes i andre moduler (.js-filer)
 module.exports = router; 
