@@ -35,19 +35,23 @@
     });
 
     // Delete a user -----------------------
+    // Sletter brukeren når man trykker på knappen. 
     btnDeleteuser.addEventListener('click', async function(evt){
 
-        alert("Are you sure you want to delete your account?");
+        alert("Are you sure you want to delete your account?"); 
+        // Legger inn en alert, et nytt vindu som dukker opp når man trykker på knappen, 
+        // denne gjør at man må bekrefte at funksjonen som sletter brukeren blir kjørt. 
+
         if(confirm){
                
-       let url = "/users/delete";
+       let url = "/users/delete"; // url'en som forteller hvilken funksjon som kjøres i users.js
 
-        let token = localStorage.getItem("token");
+        let token = localStorage.getItem("token"); // henter token fra brukeren som er innlogget i localstorage. 
     
         let cfg = {
             method: "DELETE",
             headers: {
-                "content-type":"application/json",
+                "content-type":"application/json",    // hvilken HTTP-metode som brukes. 
                 "authorization": token
             }
         }
@@ -56,7 +60,8 @@
             let data = await response.json();
 
             if (response.status != 200) {
-               deleteUpdateStatus.innerHTML = data.msg;
+               deleteUpdateStatus.innerHTML = data.msg; // gir detaljert feilmelding på hva som eventuelt går riktig eller galt. 
+                                                   // data.msg lages i users.js. deleteUpdateStatus er en <h3> i denne .html-filen. 
             }else{
                 deleteUpdateStatus.innerHTML = data.msg;
             }

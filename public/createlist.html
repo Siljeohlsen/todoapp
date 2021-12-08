@@ -61,7 +61,7 @@ være public eller ikke*/
             "content-type": "application/json",
             authorization: token,
           },
-          body: JSON.stringify(updata),
+          body: JSON.stringify(updata), 
         };
 
         try {
@@ -81,42 +81,43 @@ være public eller ikke*/
       });
 
       // List lists ---------
-      let container = document.getElementById("container");
+      let container = document.getElementById("container"); // lages en container for elementene å ligge i
 
       async function listTodoLists() {
-        let url = "/list";
+        let url = "/list"; // hvilken url vi skal bruke i serveren
 
-        let token = localStorage.getItem("token");
+        let token = localStorage.getItem("token"); // Henter informasjon om token fra localstorage 
 
         let cfg = {
-          method: "GET",
-          headers: { authorization: token },
+          method: "GET",                      //Hvilken HTTP-metode som skal brukes 
+          headers: { authorization: token },  // Her sjekkes det om det finnes en gyldig token, fordi denne handlingen er beskyttet. 
         };
 
         try {
           let response = await fetch(url, cfg);
           let data = await response.json();
+          console.log(data);
 
-          if (response.status != 200) {
-            throw data.error;
+          if (response.status != 200) {       // Om response.status ikke er lik 200, da får vi en error :) 
+            throw data.error;       // her stoppes koden om det er en feil, og det fortsetter ved første "catch". 
           }
 
-          container.innerHTML = "";
+          container.innerHTML = "";   // setter innerHTML til en tom string i containeren. 
 
-          for (let value of data) {
-            let html = "<h2>" + value.heading + "</h2>";
+          for (let value of data) {     // hæ? 
+            let html = "<h2>" + value.heading + "</h2>";  // lager en ny h2, og legger verdien til Heading (textkolonnen i List-tablet i databasen) i den
 
-            let div = document.createElement("div");
-            div.innerHTML = html;
-            container.appendChild(div);
+            let div = document.createElement("div"); //lager en div
+            div.innerHTML = html;      // legger informasjonen fra html-variabelen i div'en
+            container.appendChild(div);   // legger diven i containeren 
 
-            let delbtn = document.createElement("button");
-            delbtn.innerHTML = "Delete";
-            delbtn.dataset.id = value.listid;
+            let delbtn = document.createElement("button"); // lager delete-button
+            delbtn.innerHTML = "Delete";                   // skriver "delete" i knappen vi nettop lagde
+            delbtn.dataset.id = value.listid;              // henter listid og legger informasjonen i delbtn.dataset.id
             
 
-            delbtn.addEventListener("click", function (evt) {
-              deleteTodoLists(evt.currentTarget.dataset.id);
+            delbtn.addEventListener("click", function (evt) {  //hva som skjer når man trykker på deleteknappen
+              deleteTodoLists(evt.currentTarget.dataset.id);   // 
             });
 
             let itemsbtn = document.createElement("button");
