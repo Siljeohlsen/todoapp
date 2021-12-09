@@ -11,6 +11,7 @@ router.get("/list", protect, async function (req, res, next) {
   try {
     let data = await database.getAllLists();
     res.status(200).json(data.rows).end();
+    
   } catch (err) {
     next(err);
   }
@@ -18,7 +19,6 @@ router.get("/list", protect, async function (req, res, next) {
 
 // Get Public lists ----------------------------
 router.get("/sharelist", protect, async function (req, res, next) {
-
 
   try {
     let data = await database.getAllPublicLists();
@@ -81,6 +81,7 @@ router.delete("/list", protect, async function (req, res, next) {
   }
 });
 
+
 // ----- LIST ITEMS -----
 
 // Get list items ----------------------------
@@ -97,7 +98,7 @@ router.get("/listitems", protect, async function (req, res, next) {
 
 // Create list items ----------------------------
 router.post("/listitems", protect, async function (req, res, next) {
-  let updata = req.body;
+  let updata = req.body; // data sendt fra klienten i body-elementet. 
   let listitemsid = updata.listID;
 
   try {
@@ -157,4 +158,6 @@ router.put("/listitems", async (req, res, next) => {
   }
 });
 
+// ---------------------------
+// Exporterer alle funksjonene så de kan brukes i andre moduler (.js-filer)
 module.exports = router;
